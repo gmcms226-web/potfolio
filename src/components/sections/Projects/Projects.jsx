@@ -62,7 +62,7 @@ const CARD_PROJECTS = [
       ],
       back: {
         stat: '기획–디자인–개발–배포, 100%.',
-        line: '화면 너머의 동선까지 설계합니다.',
+        line: '',
       },
     },
   },
@@ -423,7 +423,7 @@ function MagazineCard({ project, cardNum, src }) {
           {mag.back.stat.replace(/\.$/, '')}
           <em>.</em>
         </p>
-        <p className={styles.magBackLine}>{mag.back.line}</p>
+        {mag.back.line && <p className={styles.magBackLine}>{mag.back.line}</p>}
         <div className={styles.magColophon}>
           <span>CHU MIN SEOK</span>
           <span>{mag.issue}</span>
