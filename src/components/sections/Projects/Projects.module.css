@@ -497,6 +497,8 @@
 }
 
 .circle {
+  /* --tx: 겹침 배치용 이동값 — 등장 스케일·호버 벌어짐과 합성되도록 변수로 분리 */
+  --tx: 0px;
   width: clamp(190px, 22vw, 250px);
   aspect-ratio: 1;
   border-radius: 50%;
@@ -510,6 +512,11 @@
   font-size: clamp(20px, 1.6vw, 22px);
   font-weight: 800;
   line-height: 1.35;
+  transform: translateX(var(--tx));
+  transition:
+    opacity 0.7s ease,
+    transform 0.6s cubic-bezier(0.22, 0.8, 0.3, 1),
+    box-shadow 0.45s ease;
 }
 
 .circle span {
@@ -518,12 +525,12 @@
 }
 
 .circle:first-child {
-  transform: translateX(42px);
+  --tx: 42px;
   z-index: 1;
 }
 
 .circle:last-child {
-  transform: translateX(-42px);
+  --tx: -42px;
   z-index: 1;
   background: #b8321f; /* 액센트보다 한 단계 어두운 톤 — 깊이 차이 */
 }
@@ -533,6 +540,49 @@
   z-index: 2;
   background: var(--color-accent);
   box-shadow: 0 28px 64px rgba(255, 75, 51, 0.38);
+}
+
+/* 순차 등장 — 카드가 보이면 가운데(primary) → 왼쪽 → 오른쪽 순으로 파문처럼 */
+.insightCard .circle:nth-child(1) {
+  transition-delay: 0.32s;
+}
+
+.insightCard .circle:nth-child(2) {
+  transition-delay: 0.12s;
+}
+
+.insightCard .circle:nth-child(3) {
+  transition-delay: 0.5s;
+}
+
+.insightCard:not(.visible) .circle {
+  opacity: 0;
+  transform: translateX(var(--tx)) scale(0.55);
+}
+
+/* 호버 반응 — 올린 원이 부풀고, 겹친 원들이 살짝 벌어진다 (데스크톱 전용) */
+@media (hover: hover) and (pointer: fine) {
+  .keywordGraphic:hover .circle {
+    transition-delay: 0s; /* 등장 스태거 딜레이가 호버 반응을 늦추지 않게 */
+  }
+
+  .keywordGraphic:hover .circle:first-child {
+    --tx: 14px;
+  }
+
+  .keywordGraphic:hover .circle:last-child {
+    --tx: -14px;
+  }
+
+  .circle:hover {
+    transform: translateX(var(--tx)) scale(1.07);
+    z-index: 3;
+    box-shadow: 0 30px 68px rgba(224, 62, 40, 0.46);
+  }
+
+  .primaryCircle:hover {
+    box-shadow: 0 34px 78px rgba(255, 75, 51, 0.52);
+  }
 }
 
 @media (max-width: 900px) {
@@ -592,10 +642,10 @@
 
   .circle,
   .primaryCircle {
+    --tx: 0px;
     width: 100%;
     max-width: 190px;
     justify-self: center;
-    transform: none;
   }
 
   .primaryCircle {

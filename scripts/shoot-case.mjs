@@ -6,8 +6,10 @@ import { mkdirSync } from 'node:fs'
 const OUT = 'scripts/shots'
 mkdirSync(OUT, { recursive: true })
 
+// slug가 '/'로 시작하면 절대 경로로 취급 (예: "/" = 홈)
 const slug = process.argv[2] || 'web'
 const scrollY = Number(process.argv[3] || 900)
+const path = slug.startsWith('/') ? slug : `/projects/${slug}`
 
 const browser = await puppeteer.launch({
   executablePath: 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe',
@@ -17,10 +19,11 @@ const browser = await puppeteer.launch({
 })
 
 const page = await browser.newPage()
-await page.goto(`http://localhost:5173/projects/${slug}`, { waitUntil: 'networkidle0' })
-await new Promise((r) => setTimeout(r, 1500))
+await page.goto(`http://localhost:5173${path}`, { waitUntil: 'networkidle0' })
+await new Promise((r) => setTimeout(r, 4000)) // 홈은 인트로(2.3s+페이드)까지 대기
 await page.evaluate((y) => window.scrollTo(0, y), scrollY)
-await new Promise((r) => setTimeout(r, 800))
-await page.screenshot({ path: `${OUT}/case-${slug}-${scrollY}.png` })
-console.log(`saved: ${OUT}/case-${slug}-${scrollY}.png`)
+await new Promise((r) => setTimeout(r, 1600)) // IO 등장 트랜지션(스태거 포함) 완료 대기
+const name = slug.startsWith('/') ? 'home' : slug
+await page.screenshot({ path: `${OUT}/case-${name}-${scrollY}.png` })
+console.log(`saved: ${OUT}/case-${name}-${scrollY}.png`)
 await browser.close()
