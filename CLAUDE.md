@@ -12,7 +12,7 @@ There is no test framework or linter configured. Validate changes with `npm run 
 
 `node scripts/check.mjs` (dev server must be running) drives headless Edge through the opening sequence, screenshots each scroll depth into `scripts/shots/`, and reports console errors — use it to verify scroll-driven animation changes on a cold load. `node scripts/check-reload.mjs` verifies the scroll-to-bottom-then-F5 case (post-intro landing position). Important: HMR corrupts ScrollTrigger pin state, so after structural edits the browser needs a full reload before judging behavior.
 
-This directory is **not a git repository** — rollback points are manual copies under `.codex-backups/` (e.g. `reaction-before-radar/` holds the pre-refactor Reaction files).
+This directory is a git repository (initialized 2026-07-10; no remote yet) — use commits for rollback points. Older manual backups live under `.codex-backups/` (gitignored, e.g. `reaction-before-radar/`).
 
 Also read `AGENTS.md` and `HANDOFF.md` — they contain project guidelines and active work constraints.
 

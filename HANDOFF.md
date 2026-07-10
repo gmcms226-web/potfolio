@@ -1,73 +1,74 @@
-# Project Handoff — 2026.07.09 최신
+# Project Handoff — 2026.07.10 최신
 
 추민석 포트폴리오, Vite React 앱입니다. 다음 세션에서 이 파일을 먼저 읽으면 됩니다.
-구조/컨벤션/불변 규칙은 `CLAUDE.md`(오늘 최신화됨), 코딩 스타일은 `AGENTS.md` 참고.
+구조/컨벤션/불변 규칙은 `CLAUDE.md`, 코딩 스타일은 `AGENTS.md` 참고.
 
 ## 실행/검증
 
 ```bash
 npm run dev          # http://localhost:5173/
 npm.cmd run build    # PowerShell 실행 정책 때문에 .cmd 필요
-node scripts/check.mjs         # 헤드리스 오프닝 시퀀스 스크린샷 (dev 서버 필요)
-node scripts/check-reload.mjs  # 끝까지 스크롤 후 F5 케이스 검증
+node scripts/check.mjs           # 헤드리스 오프닝 시퀀스 스크린샷 (dev 서버 필요)
+node scripts/check-reload.mjs    # 끝까지 스크롤 후 F5 케이스 검증
+node scripts/check-magazine.mjs  # Projects 폴딩 카드 12칸 전부 스크린샷
+node scripts/shoot-static.mjs <폴더> <페이지> <저장경로> [셀렉터|스크롤px]  # 로컬 정적 사이트 캡처
+node scripts/shoot-case.mjs <slug|/경로> [스크롤px]  # 케이스스터디/홈 화면 캡처
 ```
 
 - ScrollTrigger pin 섹션은 HMR 뒤 상태가 꼬임 — **화면 판단은 반드시 새로고침 후**.
+- **이제 git 저장소임** (07-10 `git init`). 롤백 지점: `de31a8c`(매거진 작업 전). 되돌리기는 revert/diff로.
 - 빌드는 통과하지만 큰 이미지 때문에 chunk/asset size 경고 있음 (기존 이슈).
 
-## 오늘(07.09) 적용한 변경
+## 오늘(07-10) 적용한 변경
 
-### 1. Reaction 오프닝 대개편 — "웹 대항해"
-- 레이더 장면 제거 → **안개 낀 바다 + 스크롤 구동 영상**으로 교체.
-- `src/assets/voyage/ships-scrub.mp4` 를 스크롤이 `currentTime`으로 직접 구동 (진행 0~58 구간에 영상 전체를 폄).
-- ⚠️ **영상 교체 시 반드시 재인코딩** — 원본은 키프레임이 길어 스크럽이 얼어붙음:
-  ```
-  ffmpeg -y -i 원본.mp4 -an -c:v libx264 -crf 26 -preset medium -g 4 -keyint_min 4 -sc_threshold 0 -pix_fmt yuv420p -movflags +faststart src/assets/voyage/ships-scrub.mp4
-  ```
-  (ffmpeg 경로: `node -e "console.log(require('@ffmpeg-installer/ffmpeg').path)"`)
-- 망설임 키워드(처음/부담/믿음/상황/가격/예약/후기): 크기 확대, **중앙 클러스터 → 사방으로 확산 소멸**.
-- 여정 노드(고민→탐색→읽음→안심→문의): 3배 확대, 위치 75%로 하강, **이동 점 타이밍에 하나씩 등장**, 문자 장면 전 페이드아웃.
-- 문자 버블 1.5배 확대. 문자 장면 뒤 **검은 밤이 아래에서 차올라** 모자이크 장면으로 전환 (배경 급전환 해소).
-- pillar 카드 1.5배(`clamp(255px, 43vh, 450px)`), CHU MIN SEOK 워터마크 외곽선 강화.
-- 미사용 파일: `voyage/sea.png`(poster로만 사용), `ship.png`·`Ships_sailing_hero.mp4`(원본, 번들 제외).
+### 1. Projects 폴딩 카드 = 매거진 에디토리얼 (5안 중 2번 확정)
+- 카드1=커버(다크 타이포+REACTION. 마스트헤드), 카드2·3=화보 스프레드(캡션 컬럼+캡처), 카드4=백커버(성과 카피).
+- 카피·캡션의 단일 출처는 `Projects.jsx`의 `CARD_PROJECTS[].magazine` 필드. 화보엔 `pos`(object-position) 옵션 있음 — 가로형 캡처 크롭 기준점 지정용.
+- `src/assets/projects/project-N-M.*` 이미지가 있으면: 화보(2·3)는 사진으로, 커버(1)·백커버(4)는 카드 전체 교체.
+- 채워진 칸: 1-2(상상코칭 네이버 검색 노출, left top 크롭), 1-3(과외 문의 문자), 2-2(ljm 리뉴얼 메인), 2-3(세종 클론 날씨 API — 사용자가 챗봇·날씨·로그인 합성 이미지로 교체 예정).
+- **빈 칸: 3-2, 3-3 (자동화)** — 준비 중 카드로 렌더링됨.
 
-### 2. 전체 감속 (두 차례 요청 반영)
-- Reaction `+=900%` / Hero `+=500%` / About 슬라이드당 210%+퇴장 85% / Projects 폴딩 `+=3200px` / POV 퇴장 1.5×viewport.
-- Hero 카메라 전진을 power2.out → **선형**으로 (이징 때문에 핀 후반 40%가 빈 터널이던 버그 수정).
+### 2. 웹 케이스스터디(/projects/web) 챕터 구조로 재편
+- CHAPTER 01 세종수목원 클론코딩(학습 재현) → 02 이정민 애견미용학원 리뉴얼(실전 문제해결) → 03 MIKIHOUSE 일체형 쇼핑몰(풀 커머스 흐름). **시간순** — 사용자 확인됨.
+- 각 챕터: 섹션 2개 → 갤러리 3장(`case/web-N`, 01=4~6 그린 / 02=1~3 핑크 / 03=7~9 오렌지) → 회고 카드(레드 라벨+액센트 보더).
+- 공용이던 "배운 것"을 챕터별 회고로 분리. 회고 문구는 내 초안 — 사용자 검토 전.
+- `data.chapters`가 있으면 챕터 렌더링, 없으면 기존 flat 갤러리+sections (marketing/automation은 기존 방식).
+- meta 기술 스택에 React·Vite·Polar Checkout 추가.
+- 캡처 출처: 바탕화면 `ljm/`(리뉴얼), `SEJONG/`(클론), `miki/miki-app/dist`(쇼핑몰) — 전부 shoot-static.mjs로 로컬 캡처. 세종 지도 페이지는 네이버 지도 API가 localhost 미등록이라 인증 실패 → 제외.
 
-### 3. Hero 터널 질감
-- 카드에 보더+깊은 그림자, **거리 기반 조명**(멀수록 어둡고 바래고 다가오면 원색) — ticker에서 filter 구동.
+### 3. POV 섹션 인터랙션 (제안 5개 중 1+2 확정)
+- 키워드 원 순차 등장(가운데→왼→오, `--tx` 변수 + transition-delay 스태거) + 호버 시 부풀고 벌어짐(`hover:hover and pointer:fine` 전용).
+- **규칙 준수: GSAP 금지, IO+CSS만.** 4번(호버 시 사례/질문 스왑)은 제안했으나 **사용자가 "그냥 냅두자"로 확정 — 다시 제안하지 말 것.**
 
-### 4. 케이스스터디 "글쓰기 해부" (marketing 상세)
-- `src/assets/write/write-N-M.png` (N=캠페인: 1 애견미용/2 과외/3 입시, M=독자 여정 순서).
-- 데이터: `caseStudies.js`의 `writing` 블록 (챕터/단계 태그/의도 캡션 — 문구 수정은 여기서만).
-- 렌더: `CaseStudy.jsx` — 스티키 주석 + 캡처 2단 레이아웃. 미사용: IMG_6893, IMG_6908.
+### 4. 카피 변경 (전부 사용자 확정)
+- 웹 폴딩 카드 desc: "사용자의 행동을 고려해 정보 구조를 재설계하고…"
+- 웹 화보 P.01 캡션 "답이 먼저 보이는 메인", 마케팅 P.02 "검색이 문의로 바뀐 기록".
+- 웹 백커버 보조 카피 제거("기획–디자인–개발–배포, 100%."만).
+- AI Lyrics: 직접 작사 + AI는 검수 파트너 + **밴드 보컬이 가사 픽, 곡 제작 확정** (A안). 곡 발매되면 마지막 줄 업데이트.
+- 직장인멍생활: 인스타 콘텐츠 기획 · 4컷툰 시리즈 2줄만.
 
-### 5. Record에 Capabilities 블록 (Contact에서 이동)
-- 3기둥(MARKETING/WEB/AUTOMATION) 스킬 + 경력/자격 줄. 데이터는 `Record.jsx`의 `CAPABILITIES`/`CAREER`.
-- 경력: **동화세상에듀코 콘텐츠 마케팅 8년 · ㈜예람 인턴 2개월** (회사명 노출은 이 줄만 허용).
-- 자격: 광고기획전문가 · 마케팅조사분석사.
+### 5. 기타
+- `case/marketing-1.png`(상상코칭 검색 노출) 마케팅 갤러리에 자동 반영됨.
+- CLAUDE.md 드리프트 3건 수정(영상 파일명/재인코딩, write 컨벤션, 빌드 경고 에셋).
 
-### 6. 타이포 전역 확대
-- 헤더 브랜드 3배(`clamp(30px,3.5vw,45px)`), CONTACT 버튼 20px.
-- **전역 최소 폰트 20px** — `tokens.css` body/caption 20px + 전 모듈 하드코딩 값 스윕 완료.
+## 대기 중 / 할 것
 
-## 내일 할 것 / 보류 중인 결정
+1. **자동화 화보 2장** (`projects/project-3-2·3-3`) — 사용자의 Make 자동 발행이 막혀 방법 찾는 중. 재촉 금지. 발행 안 돼도 Make 시나리오 편집 화면·실행 로그 캡처면 충분하다고 안내해둠.
+2. **웹 P.02 합성 이미지** — 사용자가 챗봇·날씨·로그인 합성본 제작 중 → `project-2-3` 교체 + 캡션 조정.
+3. **miki 배포 URL** — 나오면 `miki/README.md` 링크 칸(현재 example.com) + 케이스스터디 링크 칩 추가. 리드미의 프로젝트명/기간/기여도 칸도 아직 템플릿 상태.
+4. (보류 유지) Hero 터널 work-17~20 — **이미지는 이미 폴더에 있음**, WORKS 배열 4개 추가 + TRAVEL 5600→~6800 확장만 하면 됨. 사용자 승인 대기.
+5. (보류 유지) Hero B안(중앙 앵커 카피+카운터) 판단.
+6. 배포 전: 이미지 WebP 최적화(pillar/value/write/voyage/case ~수 MB), 미사용 파일 정리(search-demo.webm, ship.png, 원본 mp4, IMG_6893/6908), SPA 라우팅 설정, 모바일 실기기 검증, 파비콘 404.
 
-1. **Hero 터널 work-17~20 배치 추가** — 사용자가 "기둘" 보류. 진행 시 `WORKS` 배열에 4자리 추가 + `TRAVEL` 5600 → ~6800 확장 필수 (안 늘리면 마지막 카드가 화면에 걸린 채 끝남).
-2. **Hero B안(중앙 앵커 카피 + 카운터)** — A(질감)만 적용된 상태 보고 판단하기로 함.
-3. **Projects 폴딩 카드 12칸 전부 빈 상태** (`src/assets/projects/` 비어 있음 — 섹션 완성도 최대 병목).
-   - 추천안: 카드1~3 = 목업 프레임 통일 이미지(9장 제작), 카드4 = 코드 타이포 성과 카드(C안).
-   - 임시안(B): write/works/reaction 에셋에서 12장 복사 — 승인 대기.
-4. 배포 전: 이미지 WebP 최적화(pillar/value/write/voyage ~수 MB), `reaction/search-demo.webm` 삭제 검토, 모바일 실기기 검증, SPA 라우팅 설정.
-
-## 주의
+## 주의 (불변)
 
 - 커서 커스텀 절대 제안 금지.
 - 회사명 노출은 Record 경력 줄 외 금지.
-- scrub/핀 길이 값은 오늘 사용자 요청으로 늘린 값 — 임의로 줄이지 말 것 (CLAUDE.md에도 기록).
+- scrub/핀 길이 값 임의로 줄이지 말 것.
+- 오프닝 영상 교체 시 반드시 짧은 GOP로 재인코딩 (`ffmpeg … -g 4 -keyint_min 4 -sc_threshold 0 …`, 07-09 항목 참고).
+- POV 섹션에 GSAP 넣지 말 것 + 호버 스왑(4번) 재제안 금지.
 
 ## 마지막 확인 상태
 
-- `npm.cmd run build` 통과 (chunk 경고만).
-- 헤드리스 검증: 오프닝 영상 스크럽 정상(진행률↔재생시간 선형), 터널 카드 분포 6→11→15→10→5장, 전체 47 뷰포트, 끝까지 스크롤 도달 OK.
+- `npm.cmd run build` 통과 (청크 경고만).
+- 헤드리스 검증: 폴딩 12칸(check-magazine), 웹 케이스 3챕터, POV 등장+호버 전부 스크린샷으로 확인 완료.
