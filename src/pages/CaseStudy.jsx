@@ -66,26 +66,41 @@ function CaseStudy() {
 
         <p className={styles.intro}>{data.intro}</p>
 
-        {images.length > 0 &&
-          (data.galleryGroups ? (
-            /* 그룹 지정 시: 프로젝트별 세로 열 + 소제목 */
-            <div className={styles.galleryCols}>
-              {data.galleryGroups.map((group) => (
-                <div key={group.title} className={styles.galleryCol}>
-                  <h3>{group.title}</h3>
-                  {images.slice(group.from - 1, group.to).map((src) => (
-                    <img key={src} src={src} alt={group.title} loading="lazy" />
-                  ))}
-                </div>
+        {!data.chapters && images.length > 0 && (
+          <div className={styles.gallery}>
+            {images.map((src) => (
+              <img key={src} src={src} alt="" loading="lazy" />
+            ))}
+          </div>
+        )}
+
+        {/* 챕터 구조 — 성격이 다른 프로젝트들이 각자 서사(문제→해결→갤러리→회고)를 가진다 */}
+        {data.chapters?.map((chapter, i) => (
+          <section key={chapter.title} className={styles.chapter}>
+            <header className={styles.chapterHead}>
+              <span className={styles.chapterNum}>
+                CHAPTER {String(i + 1).padStart(2, '0')}
+              </span>
+              <h3>{chapter.title}</h3>
+              <span className={styles.chapterTone}>{chapter.tag}</span>
+            </header>
+            {chapter.sections.map((section) => (
+              <div key={section.heading} className={styles.block}>
+                <h2>{section.heading}</h2>
+                <p>{section.body}</p>
+              </div>
+            ))}
+            <div className={styles.chapterGallery}>
+              {images.slice(chapter.gallery.from - 1, chapter.gallery.to).map((src) => (
+                <img key={src} src={src} alt={chapter.title} loading="lazy" />
               ))}
             </div>
-          ) : (
-            <div className={styles.gallery}>
-              {images.map((src) => (
-                <img key={src} src={src} alt="" loading="lazy" />
-              ))}
+            <div className={styles.retro}>
+              <span className={styles.retroLabel}>회고</span>
+              <p>{chapter.retro}</p>
             </div>
-          ))}
+          </section>
+        ))}
 
         {data.sections.map((section) => (
           <section key={section.heading} className={styles.block}>

@@ -123,32 +123,44 @@
   border: 1px solid rgba(20, 20, 19, 0.08);
 }
 
-/* 그룹 갤러리 — 프로젝트별 세로 열 (왼쪽/오른쪽) */
-.galleryCols {
+/* 챕터 갤러리 — 챕터당 캡처 3장을 한 줄로 */
+.chapterGallery {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 28px;
-  margin: 0 0 64px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin: 8px 0 32px;
 }
 
-.galleryCol {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.galleryCol h3 {
-  margin: 0 0 2px;
-  font-size: var(--text-caption);
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  color: #7a7770;
-}
-
-.galleryCol img {
+.chapterGallery img {
   width: 100%;
   border-radius: 12px;
   border: 1px solid rgba(20, 20, 19, 0.08);
+}
+
+/* 회고 카드 — 챕터를 닫는 한 단락 */
+.retro {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 28px 32px;
+  background: #faf8f3;
+  border-left: 3px solid var(--color-accent-deep);
+  border-radius: 0 12px 12px 0;
+}
+
+.retroLabel {
+  font-size: var(--text-caption);
+  letter-spacing: 0.18em;
+  font-weight: 700;
+  color: var(--color-accent-deep);
+}
+
+.retro p {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.85;
+  color: rgba(20, 20, 19, 0.78);
+  word-break: keep-all;
 }
 
 .block {
@@ -349,7 +361,7 @@
     grid-template-columns: 1fr;
   }
 
-  .galleryCols {
+  .chapterGallery {
     grid-template-columns: 1fr;
   }
 

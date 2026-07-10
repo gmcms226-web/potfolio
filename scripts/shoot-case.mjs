@@ -21,6 +21,6 @@ await page.goto(`http://localhost:5173/projects/${slug}`, { waitUntil: 'networki
 await new Promise((r) => setTimeout(r, 1500))
 await page.evaluate((y) => window.scrollTo(0, y), scrollY)
 await new Promise((r) => setTimeout(r, 800))
-await page.screenshot({ path: `${OUT}/case-${slug}-gallery.png` })
-console.log(`saved: ${OUT}/case-${slug}-gallery.png`)
+await page.screenshot({ path: `${OUT}/case-${slug}-${scrollY}.png` })
+console.log(`saved: ${OUT}/case-${slug}-${scrollY}.png`)
 await browser.close()
