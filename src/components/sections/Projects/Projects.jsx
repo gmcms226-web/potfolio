@@ -36,7 +36,8 @@ const CARD_PROJECTS = [
       headline: ['검색을,', '문의로.'],
       sub: '블로그 · 카페 콘텐츠 8년의 기록',
       photos: [
-        { page: 'P.01', caption: '검색 상위 노출 후기 콘텐츠' },
+        // pos: 캡처에서 보여줄 기준점(object-position) — 생략 시 top
+        { page: 'P.01', caption: '검색 상위 노출 후기 콘텐츠', pos: 'left top' },
         { page: 'P.02', caption: '검색이 문의로 바뀐 기록' },
       ],
       back: {
@@ -447,7 +448,12 @@ function MagazineCard({ project, cardNum, src }) {
       </div>
       <div className={styles.magSpreadImg}>
         {src ? (
-          <img src={src} alt={photo.caption} loading="lazy" />
+          <img
+            src={src}
+            alt={photo.caption}
+            loading="lazy"
+            style={photo.pos ? { objectPosition: photo.pos } : undefined}
+          />
         ) : (
           <span className={styles.magPending}>화보 준비 중</span>
         )}
