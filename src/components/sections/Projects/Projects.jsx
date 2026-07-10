@@ -104,12 +104,12 @@ const PERSONAL_PROJECTS = [
   },
   {
     title: 'AI Lyrics',
-    meta: 'AI Music Project',
+    meta: 'AI-assisted Lyrics Project',
     items: [
-      'AI를 활용한 음악 기획 및 아이디어 도출',
-      '직접 작사 및 가사 구성',
-      '음원 제작 프로젝트 진행',
-      '아티스트 협업 진행 중',
+      '가사 콘셉트 기획부터 작사까지 직접 수행',
+      'AI를 검수 파트너로 활용한 퇴고·완성도 검증',
+      '밴드 보컬이 가사를 픽, 곡 제작 확정',
+      '멜로디 작업 진행 중',
     ],
   },
 ]
