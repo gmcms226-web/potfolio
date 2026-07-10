@@ -72,11 +72,16 @@ try {
 await new Promise((r) => setTimeout(r, 2000))
 
 if (focusSelector) {
-  await page.evaluate((sel) => {
-    // 플로팅 UI(챗봇 버튼 등)가 콘텐츠를 가리지 않게 숨긴다
-    document.querySelectorAll('.chatbot-btn').forEach((el) => (el.style.display = 'none'))
-    document.querySelector(sel)?.scrollIntoView({ block: 'center' })
-  }, focusSelector)
+  // 숫자면 스크롤 px, 아니면 요소 셀렉터로 취급
+  if (/^\d+$/.test(focusSelector)) {
+    await page.evaluate((y) => window.scrollTo(0, Number(y)), focusSelector)
+  } else {
+    await page.evaluate((sel) => {
+      // 플로팅 UI(챗봇 버튼 등)가 콘텐츠를 가리지 않게 숨긴다
+      document.querySelectorAll('.chatbot-btn').forEach((el) => (el.style.display = 'none'))
+      document.querySelector(sel)?.scrollIntoView({ block: 'center' })
+    }, focusSelector)
+  }
   await new Promise((r) => setTimeout(r, 1200))
 }
 
