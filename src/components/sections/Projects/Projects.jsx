@@ -37,7 +37,7 @@ const CARD_PROJECTS = [
       sub: '블로그 · 카페 콘텐츠 8년의 기록',
       photos: [
         { page: 'P.01', caption: '검색 상위 노출 후기 콘텐츠' },
-        { page: 'P.02', caption: '독자가 보내온 문의 메시지' },
+        { page: 'P.02', caption: '검색이 문의로 바뀐 기록' },
       ],
       back: {
         stat: '4개월, 문의 101건.',
