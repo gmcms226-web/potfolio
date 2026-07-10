@@ -237,6 +237,180 @@
   color: #6f6d66;
 }
 
+/* ── 매거진 에디토리얼 카드 ──────────────────────────────
+   커버(다크) → 화보 스프레드(페이퍼) → 백커버(페이퍼).
+   폰트 최소 20px 방침 유지. 레드는 마침표·룰 등 작은 면적만 */
+
+.magCover {
+  position: absolute;
+  inset: 0;
+  background: #161614;
+  color: #f5f5f2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(20px, 4.2%, 34px) clamp(24px, 5%, 40px);
+}
+
+.magCover em,
+.magHeadline em,
+.magBrand em,
+.magBackStat em {
+  font-style: normal;
+  color: var(--color-accent);
+}
+
+.magMasthead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: var(--text-caption);
+  letter-spacing: 0.16em;
+  color: #8a8a85;
+}
+
+.magBrand {
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  color: #f5f5f2;
+}
+
+.magHeadline {
+  display: flex;
+  flex-direction: column;
+  gap: 0.06em;
+  font-size: clamp(30px, 5.4vw, 54px);
+  line-height: 1.12;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.magCoverFoot {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  font-size: var(--text-caption);
+  letter-spacing: 0.1em;
+  color: #8a8a85;
+}
+
+.magCoverSub {
+  color: #c9c8c2;
+  letter-spacing: 0.02em;
+}
+
+.magSpread {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: minmax(200px, 0.62fr) 1fr;
+  background: #f7f5f0;
+}
+
+.magSpreadText {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(20px, 4.2%, 32px) clamp(20px, 4%, 30px);
+  border-right: 1px solid rgba(27, 27, 24, 0.08);
+}
+
+.magPage {
+  font-size: var(--text-caption);
+  letter-spacing: 0.14em;
+  color: var(--color-accent-deep);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.magRule {
+  display: block;
+  width: 36px;
+  height: 3px;
+  margin-bottom: 14px;
+  background: var(--color-accent-deep);
+}
+
+.magCaption {
+  font-size: clamp(20px, 1.9vw, 24px);
+  line-height: 1.35;
+  font-weight: 700;
+  color: #1b1b18;
+  word-break: keep-all;
+}
+
+.magSpreadIssue {
+  font-size: var(--text-caption);
+  letter-spacing: 0.12em;
+  color: #a5a29a;
+}
+
+.magSpreadImg {
+  position: relative;
+  overflow: hidden;
+  background: #eceae3;
+}
+
+.magSpreadImg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.magPending {
+  position: absolute;
+  inset: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed rgba(27, 27, 24, 0.22);
+  border-radius: 6px;
+  font-size: var(--text-caption);
+  letter-spacing: 0.14em;
+  color: #a5a29a;
+}
+
+.magBack {
+  position: absolute;
+  inset: 0;
+  background: #efece4;
+  color: #1b1b18;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 18px;
+  padding: clamp(20px, 4.2%, 34px) clamp(24px, 5%, 40px);
+}
+
+.magBackStat {
+  font-size: clamp(28px, 4.6vw, 46px);
+  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  word-break: keep-all;
+}
+
+.magBackLine {
+  font-size: var(--text-body);
+  line-height: 1.5;
+  color: #55534c;
+  word-break: keep-all;
+}
+
+.magColophon {
+  position: absolute;
+  left: clamp(24px, 5%, 40px);
+  right: clamp(24px, 5%, 40px);
+  bottom: clamp(18px, 4%, 28px);
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-caption);
+  letter-spacing: 0.16em;
+  color: #a5a29a;
+}
+
 .reveal {
   opacity: 0;
   transform: translateY(42px);
