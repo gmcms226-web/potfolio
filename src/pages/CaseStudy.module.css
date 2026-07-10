@@ -123,6 +123,34 @@
   border: 1px solid rgba(20, 20, 19, 0.08);
 }
 
+/* 그룹 갤러리 — 프로젝트별 세로 열 (왼쪽/오른쪽) */
+.galleryCols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  margin: 0 0 64px;
+}
+
+.galleryCol {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.galleryCol h3 {
+  margin: 0 0 2px;
+  font-size: var(--text-caption);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: #7a7770;
+}
+
+.galleryCol img {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid rgba(20, 20, 19, 0.08);
+}
+
 .block {
   margin-bottom: 52px;
 }
@@ -318,6 +346,10 @@
   }
 
   .gallery {
+    grid-template-columns: 1fr;
+  }
+
+  .galleryCols {
     grid-template-columns: 1fr;
   }
 

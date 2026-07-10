@@ -213,6 +213,11 @@ export const CASE_STUDIES = {
     ],
     intro:
       '마케터로서 콘텐츠를 만드는 것을 넘어, 반응이 일어나는 공간(웹사이트) 자체를 개선하기 위해 기획부터 디자인, 개발, 배포까지 직접 수행했습니다.',
+    /* 갤러리 2열 그룹 — from/to는 case/web-N.png 의 N 범위 (왼쪽 열, 오른쪽 열 순) */
+    galleryGroups: [
+      { title: '이정민 애견미용학원 리뉴얼', from: 1, to: 3 },
+      { title: '국립세종수목원 클론코딩', from: 4, to: 6 },
+    ],
     sections: [
       {
         heading: '이정민 애견미용학원 웹사이트 리뉴얼',

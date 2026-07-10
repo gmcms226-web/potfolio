@@ -66,13 +66,26 @@ function CaseStudy() {
 
         <p className={styles.intro}>{data.intro}</p>
 
-        {images.length > 0 && (
-          <div className={styles.gallery}>
-            {images.map((src) => (
-              <img key={src} src={src} alt="" loading="lazy" />
-            ))}
-          </div>
-        )}
+        {images.length > 0 &&
+          (data.galleryGroups ? (
+            /* 그룹 지정 시: 프로젝트별 세로 열 + 소제목 */
+            <div className={styles.galleryCols}>
+              {data.galleryGroups.map((group) => (
+                <div key={group.title} className={styles.galleryCol}>
+                  <h3>{group.title}</h3>
+                  {images.slice(group.from - 1, group.to).map((src) => (
+                    <img key={src} src={src} alt={group.title} loading="lazy" />
+                  ))}
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className={styles.gallery}>
+              {images.map((src) => (
+                <img key={src} src={src} alt="" loading="lazy" />
+              ))}
+            </div>
+          ))}
 
         {data.sections.map((section) => (
           <section key={section.heading} className={styles.block}>
