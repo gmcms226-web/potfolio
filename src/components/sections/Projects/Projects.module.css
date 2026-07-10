@@ -1,0 +1,432 @@
+.projects {
+  background: #f4f2ec;
+  color: #111;
+}
+
+.eyebrow,
+.category {
+  font-size: var(--text-caption);
+  letter-spacing: 0.12em;
+  color: #7a7770;
+}
+
+.foldHeader {
+  width: min(100% - 48px, 1180px);
+  margin: 0 auto;
+  padding: 120px 0 24px;
+}
+
+.foldHeader h2 {
+  margin-top: 14px;
+  font-size: clamp(36px, 5vw, 72px);
+  line-height: 1.05;
+  font-weight: 800;
+}
+
+.foldBlock {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.foldInner {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 var(--grid-gap);
+  display: grid;
+  grid-template-columns: minmax(260px, 0.72fr) minmax(0, 1.55fr);
+  align-items: center;
+  gap: clamp(48px, 6vw, 96px);
+}
+
+.foldText {
+  min-width: 0;
+  z-index: 5;
+}
+
+.num {
+  font-size: var(--text-caption);
+  letter-spacing: 0.1em;
+  color: #7a7770;
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 20px;
+}
+
+.meta {
+  font-size: var(--text-caption);
+  letter-spacing: 0.08em;
+  color: #7a7770;
+  margin-bottom: 12px;
+}
+
+.foldText h3 {
+  font-size: var(--text-h2);
+  font-weight: 800;
+  line-height: 1.18;
+  word-break: keep-all;
+  margin-bottom: 28px;
+}
+
+.foldDesc {
+  max-width: 340px;
+  font-size: var(--text-body);
+  line-height: 1.7;
+  color: #6f6d66;
+  word-break: keep-all;
+}
+
+/* 개인 프로젝트 — 밝은 배경 구간의 카드 2열 */
+.personalSection {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 140px 24px 160px;
+}
+
+.personalHeader {
+  margin-bottom: 56px;
+}
+
+.personalGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--grid-gap);
+}
+
+.personalCard {
+  background: #fbfaf6;
+  border: 1px solid rgba(17, 17, 17, 0.08);
+  border-radius: var(--radius);
+  padding: 44px 40px;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.personalCard:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 48px rgba(17, 17, 17, 0.08);
+}
+
+.personalCard h3 {
+  font-size: clamp(24px, 2.4vw, 30px);
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.personalMeta {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--color-accent-deep);
+  margin-bottom: 26px;
+}
+
+.personalCard ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.personalCard li {
+  position: relative;
+  padding-left: 18px;
+  font-size: 20px;
+  line-height: 1.6;
+  color: #55534c;
+}
+
+/* 레드 점 불릿 — 마침표 포인트 모티프 */
+.personalCard li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.58em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+
+@media (max-width: 900px) {
+  .personalSection {
+    padding: 96px 20px 110px;
+  }
+
+  .personalGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 카테고리 상세 페이지 입구 버튼 */
+.detailLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 26px;
+  padding: 12px 24px;
+  border: 1px solid rgba(17, 17, 17, 0.3);
+  border-radius: var(--radius-button);
+  color: #111;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 600;
+  transition: background var(--transition), color var(--transition);
+}
+
+.detailLink:hover {
+  background: var(--color-accent-deep);
+  border-color: var(--color-accent-deep);
+  color: #fff;
+}
+
+.foldStage {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  cursor: pointer; /* 무대 클릭 = 상세 페이지 이동 */
+  height: clamp(430px, 62vw, 620px);
+  perspective: 1000px;
+  perspective-origin: 50% 36%;
+}
+
+.foldCard {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(92%, 660px);
+  aspect-ratio: 16 / 9.2;
+  overflow: hidden;
+  background: #e6e3da;
+  border-radius: 8px;
+  box-shadow: 0 18px 44px rgba(27, 27, 24, 0.14);
+  transform: translate(-50%, -50%);
+  transform-origin: 50% 0%;
+  backface-visibility: hidden;
+  will-change: transform, opacity;
+}
+
+.foldCard::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.22),
+    rgba(0, 0, 0, 0) 34%,
+    rgba(0, 0, 0, 0.08)
+  );
+}
+
+.foldCard img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-caption);
+  letter-spacing: 0.12em;
+  color: #6f6d66;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(42px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+}
+
+.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.insightSection {
+  margin-left: calc(50% - 50vw);
+  width: 100vw;
+  background: #080808;
+  color: #f7f7f3;
+  padding: 120px 0;
+}
+
+.insightHeader,
+.insightCard {
+  width: min(100% - 48px, 1180px);
+  margin: 0 auto;
+}
+
+.insightHeader {
+  margin-bottom: 32px;
+}
+
+.insightHeader h2 {
+  margin-top: 14px;
+  font-size: clamp(36px, 5vw, 72px);
+  line-height: 1.05;
+  font-weight: 800;
+}
+
+.insightList {
+  display: grid;
+  gap: 32px;
+}
+
+.insightCard {
+  min-height: min(94vh, 760px);
+  display: grid;
+  grid-template-columns: minmax(280px, 0.78fr) minmax(0, 1.22fr);
+  align-items: center;
+  gap: clamp(42px, 6vw, 96px);
+}
+
+.insightCopy {
+  align-self: start;
+  padding-top: clamp(24px, 9vh, 88px);
+}
+
+.category {
+  margin-bottom: 18px;
+  color: #8f939d;
+}
+
+.insightCopy h3 {
+  max-width: 520px;
+  font-size: clamp(40px, 5.5vw, 76px);
+  line-height: 1.08;
+  font-weight: 800;
+  word-break: keep-all;
+}
+
+.insightCopy p:last-child {
+  max-width: 420px;
+  margin-top: 34px;
+  font-size: clamp(20px, 1.6vw, 22px);
+  line-height: 1.85;
+  color: #b6bcc8;
+  word-break: keep-all;
+}
+
+.keywordGraphic {
+  min-height: 430px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.circle {
+  width: clamp(190px, 22vw, 250px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  padding: 28px;
+  text-align: center;
+  background: var(--color-accent-deep);
+  box-shadow: 0 24px 52px rgba(224, 62, 40, 0.32);
+  color: #fff;
+  font-size: clamp(20px, 1.6vw, 22px);
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.circle span {
+  max-width: 150px;
+  word-break: keep-all;
+}
+
+.circle:first-child {
+  transform: translateX(42px);
+  z-index: 1;
+}
+
+.circle:last-child {
+  transform: translateX(-42px);
+  z-index: 1;
+  background: #b8321f; /* 액센트보다 한 단계 어두운 톤 — 깊이 차이 */
+}
+
+.primaryCircle {
+  width: clamp(230px, 26vw, 300px);
+  z-index: 2;
+  background: var(--color-accent);
+  box-shadow: 0 28px 64px rgba(255, 75, 51, 0.38);
+}
+
+@media (max-width: 900px) {
+  .foldBlock {
+    min-height: auto;
+    padding: 64px 0;
+  }
+
+  .foldInner,
+  .insightCard {
+    grid-template-columns: 1fr;
+    gap: 46px;
+  }
+
+  .foldStage {
+    height: 90vw;
+    min-height: 330px;
+    max-height: 520px;
+  }
+
+  .insightCard {
+    min-height: auto;
+    padding: 64px 0;
+  }
+
+  .insightCopy {
+    padding-top: 0;
+  }
+
+  .keywordGraphic {
+    min-height: 360px;
+  }
+}
+
+@media (max-width: 560px) {
+  .foldHeader,
+  .insightHeader,
+  .insightCard {
+    width: min(100% - 32px, 1180px);
+  }
+
+  .foldText h3,
+  .insightCopy h3 {
+    font-size: 38px;
+  }
+
+  .foldCard {
+    width: min(96%, 520px);
+  }
+
+  .keywordGraphic {
+    min-height: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .circle,
+  .primaryCircle {
+    width: 100%;
+    max-width: 190px;
+    justify-self: center;
+    transform: none;
+  }
+
+  .primaryCircle {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    max-width: 220px;
+  }
+}

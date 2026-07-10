@@ -1,0 +1,535 @@
+/* 스크롤 주도 오프닝 시퀀스 — pin된 한 화면 안에서 장면이 넘어간다 */
+.reaction {
+  position: relative;
+}
+
+.viewport {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 48%, rgba(245, 245, 242, 0.055), transparent 34%),
+    var(--color-bg);
+  perspective: 1200px;
+}
+
+/* 장면 1: 안개 낀 바다 — 대항해. 배가 전진하며 안개가 걷힌다 */
+.seaScene {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  will-change: transform, opacity;
+}
+
+.seaImg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  will-change: transform;
+}
+
+/* 밝은 새벽 이미지를 다크 사이트 톤으로 녹이는 셰이드 + 비네트 */
+.seaShade {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 120% 90% at 50% 55%, transparent 42%, rgba(20, 20, 19, 0.92) 97%),
+    linear-gradient(
+      180deg,
+      rgba(20, 20, 19, 0.88) 0%,
+      rgba(20, 20, 19, 0.42) 52%,
+      rgba(20, 20, 19, 0.68) 100%
+    );
+}
+
+.fog {
+  position: absolute;
+  inset: -15% -25%;
+  will-change: transform, opacity;
+}
+
+.fog1 {
+  background: radial-gradient(ellipse 70% 46% at 38% 58%, rgba(214, 218, 222, 0.34), transparent 72%);
+}
+
+.fog2 {
+  background: radial-gradient(ellipse 72% 50% at 54% 44%, rgba(206, 210, 215, 0.32), transparent 70%);
+}
+
+.fog3 {
+  background: radial-gradient(ellipse 90% 55% at 50% 60%, rgba(198, 203, 208, 0.3), transparent 74%);
+}
+
+/* 장면 전환: 아래에서 차오르는 밤 — 뷰포트 배경과 동일한 채움이라 덮인 뒤 이음새가 없다 */
+.nightRise {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 48%, rgba(245, 245, 242, 0.055), transparent 34%),
+    var(--color-bg);
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* 윗변을 부드럽게 — 조수가 밀려오듯 경계가 스며든다 */
+.nightRise::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  height: 20vh;
+  background: linear-gradient(180deg, transparent, var(--color-bg));
+}
+
+/* 망설임 키워드 무대 */
+.insightMap {
+  position: absolute;
+  left: 50%;
+  top: 48%;
+  width: min(780px, 92vw);
+  height: min(520px, 70vh);
+  transform-style: preserve-3d;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.signal {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 20px 13px 15px;
+  border: 1px solid rgba(245, 245, 242, 0.14);
+  border-radius: 999px;
+  background: rgba(25, 25, 24, 0.72);
+  color: var(--color-text);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.28);
+  will-change: transform, opacity;
+}
+
+.signalDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 18px rgba(255, 75, 51, 0.65);
+}
+
+.signalLabel {
+  font-size: clamp(20px, 1.8vw, 22px);
+  line-height: 1;
+  color: rgba(245, 245, 242, 0.78);
+}
+
+/* 장면 2: 사용자 관점의 글 카드 */
+.contentCard {
+  position: absolute;
+  left: 50%;
+  top: 49%;
+  width: min(560px, 86vw);
+  padding: clamp(24px, 4vw, 40px);
+  border: 1px solid rgba(245, 245, 242, 0.16);
+  border-radius: 8px;
+  background: rgba(21, 21, 20, 0.88);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(14px);
+  will-change: transform, opacity;
+}
+
+.contentCard p {
+  margin: 0 0 12px;
+  font-size: 20px;
+  color: var(--color-accent);
+}
+
+.contentCard h2 {
+  margin: 0;
+  font-size: clamp(28px, 4.8vw, 54px);
+  line-height: 1.08;
+  letter-spacing: 0;
+  word-break: keep-all;
+}
+
+.contentCard ul {
+  display: grid;
+  gap: 10px;
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.contentCard li {
+  position: relative;
+  padding-left: 18px;
+  font-size: 20px;
+  line-height: 1.55;
+  color: var(--color-text-muted);
+  word-break: keep-all;
+}
+
+.contentCard li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.72em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(245, 245, 242, 0.35);
+}
+
+/* 장면 3: 여정 지도 */
+.journeyPath {
+  position: absolute;
+  left: 50%;
+  top: 75%;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(120px, 210px));
+  justify-content: space-between;
+  align-items: center;
+  width: min(1120px, 92vw);
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.journeyLine {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 50%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    rgba(245, 245, 242, 0.18),
+    rgba(255, 75, 51, 0.85),
+    rgba(245, 245, 242, 0.36)
+  );
+  transform: translateY(-50%);
+  will-change: transform;
+}
+
+.traveler {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 28px rgba(255, 75, 51, 0.85);
+  will-change: transform, opacity;
+}
+
+.journeyNode {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 92px;
+  padding: 0 28px;
+  border: 1px solid rgba(245, 245, 242, 0.14);
+  border-radius: 999px;
+  background: rgba(20, 20, 19, 0.86);
+  font-size: clamp(26px, 3vw, 39px);
+  color: rgba(245, 245, 242, 0.76);
+  will-change: transform, opacity;
+}
+
+/* 장면 4: 문의 문자 버블 */
+.messageLayer {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: grid;
+  gap: 22px;
+  width: min(680px, 90vw);
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.messageBubble {
+  width: fit-content;
+  max-width: min(540px, 84vw);
+  margin: 0;
+  padding: 22px 28px;
+  border-radius: 14px;
+  background: rgba(245, 245, 242, 0.92);
+  color: #171716;
+  box-shadow: 0 18px 46px rgba(0, 0, 0, 0.38);
+  font-size: clamp(20px, 2.3vw, 26px);
+  font-weight: 600;
+  line-height: 1.55;
+  word-break: keep-all;
+  will-change: transform, opacity;
+}
+
+.messageBubble:nth-child(even) {
+  justify-self: end;
+  background: rgba(255, 75, 51, 0.94);
+  color: #fff;
+}
+
+.messageBubble span {
+  display: block;
+}
+
+/* 장면 5: 단어 통과 */
+.stage3d {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+
+.word {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  font-weight: 700;
+  letter-spacing: 0;
+  white-space: nowrap;
+  text-shadow: 0 18px 70px rgba(0, 0, 0, 0.55);
+  will-change: transform, opacity;
+}
+
+.wordSmall {
+  font-size: clamp(34px, 5vw, 72px);
+  color: rgba(245, 245, 242, 0.78);
+}
+
+.wordHero {
+  font-size: clamp(64px, 9vw, 128px);
+  color: var(--color-text);
+}
+
+.dot {
+  color: var(--color-accent);
+}
+
+/* 장면 6: 문의 모자이크 벽 */
+.wallLayer {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.wallImg {
+  position: absolute;
+  max-width: 30vw;
+  object-fit: contain;
+  border-radius: 6px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+  will-change: transform, opacity;
+}
+
+/* 장면 7: Reaction. */
+.reactionWord {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  font-size: clamp(56px, 9vw, 128px);
+  font-weight: 700;
+  letter-spacing: 0;
+  white-space: nowrap;
+  will-change: transform, opacity;
+}
+
+.slogan {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  max-width: 90vw;
+  font-size: clamp(20px, 3vw, 36px);
+  font-weight: 500;
+  letter-spacing: 0;
+  text-align: center;
+  white-space: nowrap;
+  will-change: transform, opacity;
+}
+
+/* 장면 8: 정체성 공개 */
+.identity {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  will-change: transform, opacity;
+}
+
+.tagline {
+  margin: 0 0 14px;
+  font-size: clamp(20px, 1.8vw, 24px);
+  letter-spacing: 0;
+  color: var(--color-text-muted);
+}
+
+.name {
+  margin: 0;
+  font-size: clamp(40px, 6vw, 84px);
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.05;
+  color: var(--color-text);
+}
+
+.nameChar {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+.nameBar {
+  display: block;
+  width: 64px;
+  height: 5px;
+  margin: 22px auto 0;
+  border-radius: 3px;
+  background: var(--color-accent);
+  will-change: transform;
+}
+
+.watermark {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: 0;
+  font-size: clamp(90px, 15vw, 250px);
+  font-weight: 800;
+  letter-spacing: 0;
+  white-space: nowrap;
+  /* 은은한 채움 + 진해진 외곽선 — 배경에 묻히지 않고 이름 뒤에서 살아 보이게 */
+  color: rgba(245, 245, 242, 0.05);
+  -webkit-text-stroke: 2px rgba(245, 245, 242, 0.3);
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.pillars {
+  display: flex;
+  gap: clamp(12px, 2vw, 24px);
+  margin-top: clamp(28px, 5vh, 48px);
+  justify-content: center;
+}
+
+.pillar {
+  position: relative;
+  height: clamp(255px, 43vh, 450px); /* 1.5배 확대 (2026-07-09) */
+  aspect-ratio: 3 / 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-surface);
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: clamp(20px, 1.4vw, 24px);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--color-text);
+  will-change: transform, opacity;
+}
+
+.pillar img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pillarLabel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 14px;
+  font-size: 20px;
+  text-align: center;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+}
+
+.scrollHint {
+  position: absolute;
+  left: 50%;
+  bottom: 28px;
+  transform: translateX(-50%);
+  font-size: var(--text-caption);
+  letter-spacing: 0.18em;
+  color: var(--color-text-muted);
+}
+
+.staticWrap {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.staticSlogan {
+  font-size: clamp(20px, 3vw, 36px);
+  font-weight: 500;
+  color: var(--color-text);
+  text-align: center;
+}
+
+.identityStatic {
+  margin-top: 48px;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .insightMap {
+    top: 45%;
+    height: 58vh;
+  }
+
+  .contentCard {
+    top: 45%;
+  }
+
+  .journeyPath {
+    top: 77%;
+    grid-template-columns: repeat(5, minmax(56px, 1fr));
+    width: 94vw;
+  }
+
+  .journeyNode {
+    min-height: 52px;
+    padding: 0 8px;
+    font-size: 20px;
+  }
+
+  .messageLayer {
+    top: 53%;
+  }
+
+  .word {
+    font-size: 44px;
+  }
+
+  .slogan {
+    white-space: normal;
+  }
+
+  .wallImg {
+    max-width: 40vw;
+  }
+
+  .pillars {
+    width: 92vw;
+    gap: 10px;
+  }
+
+  .pillar {
+    height: clamp(132px, 30vw, 180px);
+  }
+}

@@ -1,0 +1,164 @@
+/* Contact — 초대형 타이포 피날레.
+   앞의 pin된 섹션 위를 덮으며 올라와야 하므로
+   불투명 배경 + position/z-index(스택 컨텍스트)가 필수 */
+.contact {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--color-bg);
+  padding: 18vh 24px 40px;
+  box-sizing: border-box;
+}
+
+.inner {
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+}
+
+.eyebrow {
+  margin: 0 0 28px;
+  font-size: var(--text-caption);
+  letter-spacing: 0.18em;
+  color: var(--color-text-muted);
+}
+
+.headline {
+  margin: 0 0 40px;
+  font-size: clamp(64px, 11vw, 168px);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  color: var(--color-text);
+}
+
+.lead {
+  margin: 0 0 56px;
+  max-width: 40ch;
+  font-size: var(--text-body);
+  line-height: 1.7;
+  color: var(--color-text-muted);
+}
+
+/* trust. 의 마침표 — 사이트 공통 마침표 포인트 */
+.dot {
+  color: var(--color-accent);
+}
+
+.email {
+  position: relative;
+  display: table;
+  font-size: clamp(24px, 3.4vw, 44px);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+/* 호버: 밑줄이 왼쪽에서 오른쪽으로 차오른다 */
+.email::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 2px;
+  background: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition);
+}
+
+.email:hover::after,
+.email:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* 전화번호 — 이메일 아래 보조 연락처 */
+.phone {
+  display: table;
+  margin-top: 20px;
+  font-size: clamp(20px, 2.2vw, 26px);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+.phone:hover {
+  color: var(--color-text);
+}
+
+.footer {
+  width: 100%;
+  max-width: var(--container);
+  margin: 96px auto 0;
+  padding-top: 24px;
+  border-top: 1px solid rgba(245, 245, 242, 0.14);
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: var(--text-caption);
+  color: var(--color-text-muted);
+}
+
+.footer p {
+  margin: 0;
+}
+
+/* 등장: 공통 규칙(Fade + TranslateY) — 위에서부터 순서대로 스태거 */
+.reveal {
+  opacity: 0;
+  transform: translateY(var(--reveal-distance));
+  transition:
+    opacity var(--reveal-duration) ease,
+    transform var(--reveal-duration) ease;
+}
+
+.inner .reveal:nth-child(2) {
+  transition-delay: 0.1s;
+}
+
+.inner .reveal:nth-child(3) {
+  transition-delay: 0.2s;
+}
+
+.inner .reveal:nth-child(4) {
+  transition-delay: 0.3s;
+}
+
+.inner .reveal:nth-child(5) {
+  transition-delay: 0.4s;
+}
+
+.visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact {
+    padding: 14vh 20px 32px;
+  }
+
+  .headline {
+    font-size: clamp(48px, 14vw, 96px);
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 8px;
+  }
+}

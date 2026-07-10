@@ -1,0 +1,126 @@
+/* 핀 고정 슬라이드쇼 — 슬라이드들이 같은 화면 위에 겹쳐 쌓인다 */
+.about {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  background: var(--color-bg);
+}
+
+.inner {
+  max-width: var(--container);
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 var(--grid-gap);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--grid-gap);
+}
+
+/* 좌측: 텍스트 (clip-path 와이프로 등장) */
+.left {
+  flex: 1;
+  max-width: 480px;
+}
+
+.reveal {
+  will-change: clip-path;
+}
+
+.label {
+  font-size: var(--text-caption);
+  letter-spacing: 0.14em;
+  color: var(--color-text-muted);
+  margin-bottom: 28px;
+}
+
+.title {
+  font-size: var(--text-h1);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.subtitle {
+  font-size: var(--text-h3);
+  font-weight: 400;
+  color: var(--color-text-muted);
+  margin: 8px 0 40px;
+}
+
+.pagination {
+  font-size: var(--text-caption);
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 16px;
+}
+
+.desc {
+  font-size: var(--text-body);
+  line-height: 1.7;
+  word-break: keep-all;
+}
+
+/* 우측: 일러스트 (scale + y 로 떠오른다) */
+.right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.illustration {
+  width: min(430px, 34vw);
+  aspect-ratio: 1;
+  color: var(--color-text);
+  will-change: transform;
+}
+
+.illustration svg {
+  width: 100%;
+  height: 100%;
+}
+
+.illustration img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  filter: saturate(0.92) contrast(1.06);
+  mask-image: radial-gradient(circle, #000 58%, rgba(0, 0, 0, 0.72) 78%, transparent 100%);
+}
+
+/* prefers-reduced-motion: 핀 없이 슬라이드를 세로로 나열 */
+.staticList .slide {
+  position: static;
+  min-height: 100vh;
+}
+
+@media (max-width: 768px) {
+  .inner {
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+  }
+
+  .title {
+    font-size: 44px;
+  }
+
+  .subtitle {
+    font-size: 20px;
+    margin-bottom: 24px;
+  }
+
+  .illustration {
+    width: min(62vw, 280px);
+    align-self: center;
+  }
+}

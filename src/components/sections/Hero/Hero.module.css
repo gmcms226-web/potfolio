@@ -1,0 +1,179 @@
+/* 자동 재생 시네마틱 — 한 화면에서 터널 통과가 재생된다 */
+.track {
+  position: relative;
+}
+
+.viewport {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  perspective: 1000px;
+  perspective-origin: 50% 50%;
+  /* 소실점 안개 — 깊이의 끝을 배경보다 미세하게 밝혀
+     무한히 이어지는 느낌. 정적, 톤온톤 */
+  background:
+    radial-gradient(
+      ellipse 42% 34% at 50% 50%,
+      rgba(245, 245, 242, 0.055) 0%,
+      rgba(245, 245, 242, 0) 70%
+    ),
+    var(--color-bg);
+}
+
+.card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  /* 블로그·웹페이지 캡처용 세로형 직사각형, 라운드 없음.
+     높이는 카드별 --card-h (vh 기준) — 화면을 압도하는 벽면 스케일 */
+  height: var(--card-h, 70vh);
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: var(--color-surface);
+  /* 질감 — 얇은 윤곽 + 깊은 그림자로 "빛이 있는 공간"의 물체로 만든다 */
+  border: 1px solid rgba(245, 245, 242, 0.16);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.5);
+  will-change: transform, opacity, filter;
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  font-size: var(--text-caption);
+  letter-spacing: 0.12em;
+}
+
+/* 마무리 무대 — 태그라인 + 세 카드가 중앙에 정렬된다 */
+.finaleWrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 56px;
+  transform-style: preserve-3d; /* 카드가 깊이에서 날아오는 3D 경로 유지 */
+  pointer-events: none;
+}
+
+.finale {
+  text-align: center;
+  will-change: transform, opacity;
+}
+
+.pillars {
+  display: flex;
+  gap: var(--grid-gap);
+  transform-style: preserve-3d;
+}
+
+.pillar {
+  position: relative;
+  width: min(220px, 24vw);
+  aspect-ratio: 3 / 4;
+  background: var(--color-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  will-change: transform, opacity;
+}
+
+.pillar img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 이미지가 있을 때 라벨은 하단 배지로 내려간다 */
+.pillarLabel {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: var(--text-caption);
+  letter-spacing: 0.1em;
+  padding: 5px 14px;
+  border-radius: var(--radius-button);
+  background: rgba(10, 10, 9, 0.6);
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+.tagline {
+  font-size: var(--text-h3);
+  font-weight: 400;
+  color: var(--color-text-muted);
+  margin-bottom: 12px;
+}
+
+.name {
+  font-size: var(--text-h1);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.staticFinale {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 48px 0;
+}
+
+/* prefers-reduced-motion: 정적 그리드 대체 */
+.staticGrid {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: var(--section-gap) var(--grid-gap);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--grid-gap);
+}
+
+.staticGrid .card {
+  position: static;
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  .card {
+    height: calc(var(--card-h, 70vh) * 0.55);
+  }
+
+  .staticGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .finaleWrap {
+    gap: 32px;
+  }
+
+  .pillar {
+    width: 26vw;
+    font-size: 20px;
+  }
+
+  .name {
+    font-size: 44px;
+  }
+
+  .tagline {
+    font-size: 20px;
+  }
+}

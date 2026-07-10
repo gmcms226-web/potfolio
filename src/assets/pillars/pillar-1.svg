@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800">
+  <!-- MARKETING — 메시지를 세상으로 보내는 페이퍼 플레인 -->
+  <rect width="600" height="800" fill="#232322"/>
+  <g fill="none" stroke="#F5F5F2" stroke-opacity="0.85" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M460 190 L295 355"/>
+    <path d="M460 190 L355 490 L295 355 L160 295 Z"/>
+    <path d="M180 470 L250 470" stroke-opacity="0.35"/>
+    <path d="M150 520 L280 520" stroke-opacity="0.25"/>
+    <path d="M200 570 L260 570" stroke-opacity="0.15"/>
+  </g>
+</svg>

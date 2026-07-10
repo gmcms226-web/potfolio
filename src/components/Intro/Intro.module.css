@@ -1,0 +1,52 @@
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  /* 본문과 같은 색 — 전환 시 색 점프 없이 콘텐츠만 교차되도록 */
+  background: var(--color-bg);
+  color: var(--color-text);
+  opacity: 1;
+  transition: opacity 0.8s ease;
+  will-change: opacity;
+}
+
+.leaving {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* R3F 캔버스가 오버레이를 가득 채운다 */
+.canvasWrap {
+  position: absolute;
+  inset: 0;
+}
+
+/* 연도 카운터 (화면 정중앙) */
+.inner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.caption {
+  font-size: var(--text-caption);
+  letter-spacing: 0.14em;
+  opacity: 0.5;
+  margin-bottom: 12px;
+}
+
+.counter {
+  font-size: var(--text-h1);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums; /* 숫자 폭 고정 — 카운팅 시 흔들림 방지 */
+}
+
+@media (max-width: 768px) {
+  .counter {
+    font-size: 44px;
+  }
+}

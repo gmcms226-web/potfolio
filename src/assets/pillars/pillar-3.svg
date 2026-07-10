@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800">
+  <!-- 자동화 — 위에서 아래로 흐르는 파이프라인 -->
+  <rect width="600" height="800" fill="#232322"/>
+  <g fill="none" stroke="#F5F5F2" stroke-opacity="0.85" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="300" cy="240" r="38"/>
+    <circle cx="300" cy="385" r="38" stroke-opacity="0.65"/>
+    <circle cx="300" cy="530" r="38" stroke-opacity="0.45"/>
+    <line x1="300" y1="282" x2="300" y2="332"/>
+    <path d="M284 318 L300 336 L316 318"/>
+    <line x1="300" y1="427" x2="300" y2="477" stroke-opacity="0.65"/>
+    <path d="M284 463 L300 481 L316 463" stroke-opacity="0.65"/>
+    <circle cx="300" cy="240" r="10" fill="#F5F5F2" stroke="none" fill-opacity="0.85"/>
+    <circle cx="300" cy="385" r="10" fill="#F5F5F2" stroke="none" fill-opacity="0.55"/>
+    <circle cx="300" cy="530" r="10" fill="#F5F5F2" stroke="none" fill-opacity="0.35"/>
+  </g>
+</svg>

@@ -1,0 +1,228 @@
+/* 숫자로 보는 반응 — 카운트업 지표 그리드 */
+.record {
+  position: relative;
+  background: var(--color-bg);
+  padding: 22vh 24px;
+}
+
+.inner {
+  max-width: var(--container);
+  margin: 0 auto;
+}
+
+.header {
+  margin-bottom: 72px;
+}
+
+.eyebrow {
+  margin: 0 0 16px;
+  font-size: var(--text-caption);
+  letter-spacing: 0.18em;
+  color: var(--color-text-muted);
+}
+
+.header h2 {
+  margin: 0;
+  font-size: var(--text-h2);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--grid-gap);
+}
+
+.stat {
+  padding: 32px 28px 36px;
+  border-top: 1px solid rgba(245, 245, 242, 0.18);
+}
+
+.number {
+  margin: 0 0 18px;
+  white-space: nowrap;
+  font-size: clamp(48px, 5vw, 84px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums; /* 카운트업 중 흔들림 방지 */
+}
+
+.suffix {
+  font-size: 0.45em;
+  font-weight: 600;
+  margin-left: 4px;
+  color: var(--color-accent);
+}
+
+.label {
+  margin: 0 0 10px;
+  font-size: var(--text-body);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.desc {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+}
+
+.notes {
+  list-style: none;
+  margin: 72px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--grid-gap);
+}
+
+.note {
+  padding: 20px 24px;
+  border-left: 2px solid rgba(245, 245, 242, 0.3);
+  font-size: 20px;
+  line-height: 1.7;
+  color: var(--color-text-muted);
+}
+
+/* Capabilities — 숫자 증거에 이어지는 역량·경력 요약 (상단 보더로 스탯과 구분) */
+.capabilities {
+  margin-top: 88px;
+  padding-top: 56px;
+  border-top: 1px solid rgba(245, 245, 242, 0.14);
+}
+
+.capabilities .eyebrow {
+  margin-bottom: 40px;
+}
+
+.capGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--grid-gap);
+}
+
+.capCol {
+  padding-top: 18px;
+  border-top: 1px solid rgba(245, 245, 242, 0.18);
+}
+
+.capCol h3 {
+  margin: 0 0 16px;
+  font-size: var(--text-caption);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--color-text);
+}
+
+.capDot {
+  color: var(--color-accent);
+}
+
+.capCol ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.capCol li {
+  margin-bottom: 8px;
+  font-size: 20px;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+  word-break: keep-all;
+}
+
+.capMeta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px 32px;
+  margin: 40px 0 0;
+}
+
+.capMeta div {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+
+.capMeta dt {
+  flex-shrink: 0;
+  font-size: var(--text-caption);
+  letter-spacing: 0.14em;
+  color: var(--color-text-muted);
+}
+
+.capMeta dd {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--color-text);
+  word-break: keep-all;
+}
+
+/* 등장: 공통 규칙(Fade + TranslateY) — 카운트업과 함께 스태거 */
+.header,
+.stat,
+.note,
+.capReveal {
+  opacity: 0;
+  transform: translateY(var(--reveal-distance));
+  transition:
+    opacity var(--reveal-duration) ease,
+    transform var(--reveal-duration) ease;
+}
+
+.visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header,
+  .stat,
+  .note,
+  .capReveal {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .record {
+    padding: 16vh 20px;
+  }
+
+  .header {
+    margin-bottom: 48px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .stat {
+    padding: 20px 4px 24px;
+  }
+
+  .notes {
+    margin-top: 48px;
+    grid-template-columns: 1fr;
+  }
+
+  .capabilities {
+    margin-top: 64px;
+    padding-top: 40px;
+  }
+
+  .capGrid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}

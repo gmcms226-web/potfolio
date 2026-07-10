@@ -1,0 +1,87 @@
+/* 스크롤 진행바 — 블렌드 없이 항상 포인트 컬러 */
+.progressWrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 70;
+  pointer-events: none;
+}
+
+.progress {
+  height: 100%;
+  background: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+/* 헤더 — difference 블렌드로 배경 밝기에 따라 글자가 자동 반전 */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 28px;
+  mix-blend-mode: difference;
+  color: #fff;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  pointer-events: none;
+}
+
+.visible {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.brand {
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+  font-family: inherit;
+  font-size: clamp(30px, 3.5vw, 45px);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.brandSub {
+  font-weight: 400;
+  font-size: max(0.6em, 20px); /* 브랜드 대비 비율 유지, 최소 20px */
+  opacity: 0.75;
+}
+
+.contactBtn {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: var(--radius-button);
+  padding: 12px 30px;
+  color: inherit;
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  transition: background var(--transition);
+}
+
+.contactBtn:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+@media (max-width: 560px) {
+  .header {
+    padding: 12px 20px;
+  }
+
+  .brandSub {
+    display: none;
+  }
+}
