@@ -57,7 +57,7 @@ const CARD_PROJECTS = [
       headline: ['반응이 일어나는', '공간을 직접.'],
       sub: '애견미용학원 리뉴얼 · 수목원 클론코딩',
       photos: [
-        { page: 'P.01', caption: '상담 전환 중심으로 재설계한 메인' },
+        { page: 'P.01', caption: '답이 먼저 보이는 메인' },
         { page: 'P.02', caption: '지도 · 날씨 · 로그인, 직접 구현한 기능' },
       ],
       back: {
