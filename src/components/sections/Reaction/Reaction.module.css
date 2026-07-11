@@ -531,9 +531,20 @@
   .pillars {
     width: 92vw;
     gap: 10px;
+    /* 워터마크(CHU MIN SEOK)가 카드 상단을 침범해 답답했다 — 카드를 아래로 분리 */
+    margin-top: clamp(64px, 11vh, 104px);
   }
 
   .pillar {
     height: clamp(132px, 30vw, 180px);
+  }
+
+  .pillarLabel {
+    font-size: 14px; /* 20px는 카드 폭에서 MARKETING이 잘렸다 */
+    bottom: 10px;
+  }
+
+  .watermark {
+    top: 44%; /* 이름 뒤에 깔리도록 위로 — 카드와의 겹침 해소 */
   }
 }
