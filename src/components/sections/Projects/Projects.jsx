@@ -101,8 +101,8 @@ const PERSONAL_PROJECTS = [
     ],
   },
   {
-    title: 'AI Lyrics',
-    meta: 'AI-assisted Lyrics Project',
+    title: '작사 노트',
+    meta: 'Lyric Writing Project',
     items: [
       '가사 콘셉트 기획부터 작사까지 직접 수행',
       'AI를 검수 파트너로 활용한 퇴고·완성도 검증',
