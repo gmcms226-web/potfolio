@@ -10,7 +10,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 There is no test framework or linter configured. Validate changes with `npm run build` (catches bundling/import errors) and visual checks via `npm run dev`. On Windows, `npm.cmd run build` may be needed.
 
-`node scripts/check.mjs` (dev server must be running) drives headless Edge through the opening sequence, screenshots each scroll depth into `scripts/shots/`, and reports console errors — use it to verify scroll-driven animation changes on a cold load. `node scripts/check-reload.mjs` verifies the scroll-to-bottom-then-F5 case (post-intro landing position). Important: HMR corrupts ScrollTrigger pin state, so after structural edits the browser needs a full reload before judging behavior.
+Headless verification scripts (all use puppeteer-core driving Edge; `check*`/`shoot-case` need the dev server running, screenshots land in `scripts/shots/`):
+
+- `node scripts/check.mjs` — drives the opening sequence, screenshots each scroll depth, reports console errors; use for scroll-driven animation changes on a cold load
+- `node scripts/check-reload.mjs` — verifies the scroll-to-bottom-then-F5 case (post-intro landing position)
+- `node scripts/check-magazine.mjs` — screenshots all 12 Projects folding cards (3 projects × 4)
+- `node scripts/shoot-case.mjs <slug|/path> [scrollpx]` — screenshots a case-study page (or home with a `/` path)
+- `node scripts/shoot-static.mjs <folder> <page> <outfile> [selector|scrollpx]` — serves a local static site and captures it; used to produce the `projects/` and `case/` capture assets
+- `node scripts/record-search.mjs` — re-records `src/assets/reaction/search-demo.webm` (currently unused asset)
+
+Important: HMR corrupts ScrollTrigger pin state, so after structural edits the browser needs a full reload before judging behavior.
 
 This directory is a git repository (initialized 2026-07-10; no remote yet) — use commits for rollback points. Older manual backups live under `.codex-backups/` (gitignored, e.g. `reaction-before-radar/`).
 
@@ -20,7 +29,7 @@ Also read `AGENTS.md` and `HANDOFF.md` — they contain project guidelines and a
 
 Vite + React 18 portfolio. Dependencies: React, GSAP, react-router-dom, three/@react-three/fiber@8 (intro only — fiber v9 needs React 19, don't upgrade casually). Code comments are in Korean; keep that convention.
 
-Routing (`App.jsx`): `/` = `pages/Home` (the full scroll experience), `/projects/:slug` = `pages/CaseStudy` (light-themed detail pages; content single-sourced in `src/data/caseStudies.js`, slugs: marketing/web/automation). The Projects folding cards are category entrances linking to these. Case-study gallery images: `src/assets/case/<slug>-N.png`. Opening plays once per real page load (module-scope flag in Home.jsx — survives route changes, resets on reload); returning via "메인으로" (`location.state.returnTo`) lands at `#projects-anchor` — the jump must re-run in rAF after the unlock-refresh, which resets scroll to 0.
+Routing (`App.jsx`): `/` = `pages/Home` (the full scroll experience), `/projects/:slug` = `pages/CaseStudy` (light-themed detail pages; content single-sourced in `src/data/caseStudies.js`, slugs: marketing/web/automation). The Projects folding cards are category entrances linking to these. Case-study gallery images: `src/assets/case/<slug>-N.png`. A case-study entry with a `chapters` array renders as chapters (sections → gallery slice via `gallery: { from, to }` → per-chapter 회고 card — the web page uses this, chronological order user-confirmed); without it, the flat sections+gallery layout is used (marketing/automation). Opening plays once per real page load (module-scope flag in Home.jsx — survives route changes, resets on reload); returning via "메인으로" (`location.state.returnTo`) lands at `#projects-anchor` — the jump must re-run in rAF after the unlock-refresh, which resets scroll to 0.
 
 ### Opening (scroll-driven)
 
@@ -45,7 +54,7 @@ Components discover images with `import.meta.glob` and parse numbers out of file
 - `src/assets/reaction/reactionNN.*` → Reaction mosaic wall (leading zeros OK)
 - `src/assets/pillars/pillar-N.*` → Reaction identity pillar cards (1=MARKETING, 2=WEB, 3=자동화); raster (png/jpg/webp) wins over the co-existing SVGs
 - `src/assets/values/value-N.*` → About value objets (1=관찰, 2=기획, 3=성장, 4=연결); delete to fall back to the SVG line icons
-- `src/assets/projects/project-N-M.png` → Projects section (project N, card M)
+- `src/assets/projects/project-N-M.*` → Projects folding cards (project N, card M): photo-spread cards 2·3 use the image as the 화보 photo (falls back to a "준비 중" page), cover card 1 and back-cover card 4 are replaced wholesale by the image
 - `src/assets/write/write-N-M.png` → CaseStudy "글쓰기 해부" captures on the marketing page (N=campaign: 1 애견미용, 2 과외, 3 입시; M=reader-journey order); captions/chapters are edited in the `writing` block of `caseStudies.js`, not in JSX
 
 Missing numbers render as placeholders; adding a correctly named file is all that's needed.
@@ -54,17 +63,18 @@ Missing numbers render as placeholders; adding a correctly named file is all tha
 
 `src/components/sections/Projects/` has two parts in fixed order:
 
-1. Folding-card section — 3 projects × 4 cards, pinned scroll interaction using **GSAP ScrollTrigger**.
-2. "PROJECT POINT OF VIEW" black section — SNS/AI/Web cards with CSS `div` circle graphics, animated with **Intersection Observer + CSS transitions only** (deliberately not GSAP).
+1. Folding-card section — 3 projects × 4 cards, pinned scroll interaction using **GSAP ScrollTrigger**. The 4 cards follow a magazine-editorial grammar: cover (1) → photo spreads (2·3) → back cover (4). All copy/captions are single-sourced in the `CARD_PROJECTS[].magazine` field in `Projects.jsx` (photos take an optional `pos` for object-position cropping) — edit there, not in the JSX markup.
+2. "PROJECT POINT OF VIEW" black section — SNS/AI/Web cards with CSS `div` circle graphics, animated with **Intersection Observer + CSS transitions only** (deliberately not GSAP). Keyword circles appear staggered (`--tx` + transition-delay) and inflate/spread on hover (gated to `hover:hover and pointer:fine`).
 
-Keep this split: don't introduce GSAP into part 2 or replace part 1 with part 2.
+Keep this split: don't introduce GSAP into part 2 or replace part 1 with part 2. A hover content-swap for the POV cards was proposed and rejected ("그냥 냅두자") — don't re-propose it.
 
 ## Active constraints (from HANDOFF.md)
 
 - Design should stay clean, premium, B2B-proposal-like — no neon, particles, or heavy gradients.
 - Never suggest or add a custom cursor — the user explicitly had one removed.
 - Company names are OK in the 경력 line of Record's Capabilities block ("동화세상에듀코 콘텐츠 마케팅 8년 · ㈜예람 인턴 2개월", user-confirmed 2026-07-09) — avoid exposing them elsewhere in copy.
-- Known open items: large assets (`pillar-*.png`, `value-*.png`, `write/`, `voyage/` — up to several MB each) trigger build size warnings and need WebP/resize before deploy; `src/assets/reaction/search-demo.webm` is unused but kept; SPA routing config needed before deploy.
+- Known open items: large assets (`pillar-*.png`, `value-*.png`, `write/`, `voyage/`, `case/` — up to several MB each) trigger build size warnings and need WebP/resize before deploy; `src/assets/reaction/search-demo.webm` is unused but kept; SPA routing config and favicon needed before deploy.
+- The automation photo-spread slots (`projects/project-3-2`, `project-3-3`) are intentionally empty pending user material — don't nag about them (HANDOFF: 재촉 금지).
 
 ## Style
 
