@@ -212,6 +212,8 @@ function Projects() {
 
         cards.forEach((card, index) => {
           if (index > 0) {
+            /* 이동과 페이드를 분리 — 페이드가 이동(0.7)만큼 길면 반투명 크로스페이드
+               구간에서 앞뒤 카드 텍스트가 겹쳐 읽힌다. 진입은 빠르게 불투명해진다 */
             tl.to(
               card,
               {
@@ -219,12 +221,12 @@ function Projects() {
                 y: 0,
                 rotation: 0,
                 scale: 1,
-                opacity: 1,
                 duration: 0.7,
                 ease: 'power3.out',
               },
               `card-${index}`,
             )
+            tl.to(card, { opacity: 1, duration: 0.28, ease: 'power1.out' }, `card-${index}`)
           }
 
           tl.to({}, { duration: 0.35 })
@@ -237,12 +239,13 @@ function Projects() {
                 rotationX: -82,
                 rotation: -1.5,
                 scale: 0.94,
-                opacity: 0.18,
                 duration: 0.8,
                 ease: 'power2.inOut',
               },
               `card-${index + 1}`,
             )
+            // 잔상 0.18 → 0.05: 접힌 카드 텍스트가 다음 카드 위에 계속 비치지 않게
+            tl.to(card, { opacity: 0.05, duration: 0.35, ease: 'power1.in' }, `card-${index + 1}`)
           }
         })
       })

@@ -78,7 +78,17 @@
 
 @media (max-width: 560px) {
   .header {
-    padding: 12px 20px;
+    padding: 10px 16px;
+  }
+
+  .brand {
+    font-size: 24px;
+  }
+
+  .contactBtn {
+    padding: 8px 18px;
+    font-size: 16px;
+    letter-spacing: 0.1em;
   }
 
   .brandSub {

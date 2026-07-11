@@ -641,16 +641,36 @@
   }
 
   .circle,
-  .primaryCircle {
+  .primaryCircle,
+  .circle:first-child,
+  .circle:last-child {
+    /* :first-child/:last-child의 --tx(±42px)가 그리드 배치를 다시 겹치게 하므로
+       같은 특이도로 무효화 — 모바일은 겹침 없이 나란히 */
     --tx: 0px;
     width: 100%;
     max-width: 190px;
     justify-self: center;
   }
 
+  .circle {
+    padding: 18px;
+    font-size: 18px;
+  }
+
+  .circle span {
+    max-width: 124px;
+    overflow-wrap: break-word; /* "Workflow" 등 긴 단어가 원 밖으로 넘치지 않게 */
+  }
+
   .primaryCircle {
     grid-column: 1 / -1;
     grid-row: 1;
     max-width: 220px;
+  }
+
+  .magPending {
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    word-break: keep-all;
   }
 }

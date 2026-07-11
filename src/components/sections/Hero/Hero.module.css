@@ -153,7 +153,8 @@
 
 @media (max-width: 768px) {
   .card {
-    height: calc(var(--card-h, 70vh) * 0.55);
+    /* 0.55는 카드가 화면 중앙에 점처럼 몰려 보였다 — 좁은 화면에서도 벽면 스케일 유지 */
+    height: calc(var(--card-h, 70vh) * 0.72);
   }
 
   .staticGrid {

@@ -89,6 +89,7 @@
   position: absolute;
   left: 50%;
   top: 48%;
+  z-index: 1; /* 망설임 키워드는 콘텐츠 카드 아래 층 — 산개 중 글자 위를 가리지 않게 */
   width: min(780px, 92vw);
   height: min(520px, 70vh);
   transform-style: preserve-3d;
@@ -131,6 +132,7 @@
   position: absolute;
   left: 50%;
   top: 49%;
+  z-index: 2; /* insightMap(키워드)보다 위 */
   width: min(560px, 86vw);
   padding: clamp(24px, 4vw, 40px);
   border: 1px solid rgba(245, 245, 242, 0.16);
@@ -521,7 +523,9 @@
   }
 
   .wallImg {
-    max-width: 40vw;
+    /* 그리드 열 간격이 24vw라 40vw 타일은 서로 크게 겹쳤다 — 간격에 맞춰 축소 */
+    max-width: 24vw;
+    max-height: 22vh;
   }
 
   .pillars {
