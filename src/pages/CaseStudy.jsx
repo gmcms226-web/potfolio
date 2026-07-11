@@ -137,6 +137,9 @@ function CaseStudy() {
                   <h3>{chapter.title}</h3>
                   <span className={styles.chapterTone}>{chapter.tone}</span>
                 </header>
+                {chapter.desc && (
+                  <p className={styles.chapterDesc}>{chapter.desc}</p>
+                )}
                 {chapter.items.map(
                   (item) =>
                     writeImageByKey[item.img] && (

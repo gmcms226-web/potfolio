@@ -269,6 +269,15 @@
   color: rgba(20, 20, 19, 0.5);
 }
 
+.chapterDesc {
+  margin: -8px 0 36px;
+  max-width: 640px;
+  font-size: 20px;
+  line-height: 1.8;
+  color: rgba(20, 20, 19, 0.65);
+  word-break: keep-all;
+}
+
 .writeRow {
   display: grid;
   grid-template-columns: 260px 1fr;
