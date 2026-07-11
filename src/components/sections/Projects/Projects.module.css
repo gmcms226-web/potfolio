@@ -298,6 +298,7 @@
 .magCoverSub {
   color: #c9c8c2;
   letter-spacing: 0.02em;
+  word-break: keep-all; /* "콘텐츠"가 콘/텐츠로 끊기지 않게 */
 }
 
 .magSpread {
@@ -672,5 +673,36 @@
     font-size: 13px;
     letter-spacing: 0.08em;
     word-break: keep-all;
+  }
+
+  /* 커버 하단 — 좁은 폭에서 두 스팬이 절반씩 나눠 갖다 단어가 꺾였다. 세로 스택으로 */
+  .magCoverFoot {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    font-size: 12px;
+  }
+
+  /* 카드 높이(약 190px)에 맞춰 커버 타이포 축소 — 서브 문구 둘째 줄이 잘리지 않게 */
+  .magCover {
+    padding: 16px 18px;
+  }
+
+  .magMasthead {
+    font-size: 12px;
+  }
+
+  .magHeadline {
+    font-size: 26px;
+  }
+
+  /* 백커버 콜로폰 — 글자가 여러 줄로 꺾여 올라와 본문 카피와 겹쳤다 */
+  .magColophon {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+  }
+
+  .magColophon span {
+    white-space: nowrap;
   }
 }
