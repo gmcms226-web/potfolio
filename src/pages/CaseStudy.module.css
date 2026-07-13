@@ -372,6 +372,170 @@
   color: #fff;
 }
 
+/* ── 자동화 케이스 시각 블록 ───────────────────────────── */
+
+/* Before / After 비교 */
+.baGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 26px;
+}
+
+.baCol {
+  padding: 26px 24px;
+  border: 1px solid rgba(20, 20, 19, 0.14);
+  border-radius: 14px;
+  background: #fff;
+}
+
+.baColAfter {
+  border-color: rgba(224, 62, 40, 0.45);
+  background: rgba(224, 62, 40, 0.04);
+}
+
+.baLabel {
+  display: block;
+  font-size: var(--text-caption);
+  letter-spacing: 0.16em;
+  font-weight: 700;
+  color: rgba(20, 20, 19, 0.45);
+}
+
+.baColAfter .baLabel {
+  color: var(--color-accent-deep);
+}
+
+.baTitle {
+  margin: 8px 0 18px;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.baSteps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.baSteps li {
+  font-size: 20px;
+  color: rgba(20, 20, 19, 0.75);
+}
+
+/* 단계 사이 ↓ 화살표 */
+.baSteps li + li::before {
+  content: '↓';
+  display: block;
+  margin: 6px 0;
+  color: rgba(20, 20, 19, 0.3);
+}
+
+.baColAfter .baSteps li + li::before {
+  color: var(--color-accent-deep);
+}
+
+.blockNote {
+  margin-top: 18px;
+  font-size: 20px;
+  color: rgba(20, 20, 19, 0.6);
+}
+
+/* 시스템 구성 플로우 */
+.flow {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  margin-top: 26px;
+}
+
+.flowNode {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  padding: 20px 12px;
+  border: 1px solid rgba(20, 20, 19, 0.14);
+  border-radius: 12px;
+  background: #fff;
+  text-align: center;
+}
+
+.flowName {
+  font-weight: 700;
+  font-size: 19px;
+  word-break: keep-all;
+}
+
+.flowRole {
+  font-size: 16px;
+  color: rgba(20, 20, 19, 0.55);
+  word-break: keep-all;
+}
+
+.flowArrow {
+  align-self: center;
+  flex-shrink: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-accent-deep);
+}
+
+/* 특징 체크리스트 */
+.featureList {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 28px;
+  margin: 26px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.featureList li {
+  position: relative;
+  padding-left: 30px;
+  font-size: 20px;
+}
+
+.featureList li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  font-weight: 700;
+  color: var(--color-accent-deep);
+}
+
+/* 확장 가능성 태그 */
+.expansion {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 26px;
+}
+
+.expTargets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.expTag {
+  padding: 8px 16px;
+  border: 1px solid rgba(20, 20, 19, 0.2);
+  border-radius: var(--radius-button);
+  font-size: 18px;
+  font-weight: 600;
+  color: rgba(20, 20, 19, 0.75);
+}
+
+.expTagCurrent {
+  background: var(--color-accent-deep);
+  border-color: var(--color-accent-deep);
+  color: #fff;
+}
+
 @media (max-width: 768px) {
   .topbar {
     padding: 14px 20px;
@@ -400,5 +564,23 @@
 
   .writeRow figcaption {
     position: static;
+  }
+
+  .baGrid {
+    grid-template-columns: 1fr;
+  }
+
+  /* 플로우는 세로 스택 — 화살표도 아래 방향으로 */
+  .flow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .flowArrow {
+    transform: rotate(90deg);
+  }
+
+  .featureList {
+    grid-template-columns: 1fr;
   }
 }

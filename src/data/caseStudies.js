@@ -290,12 +290,59 @@ export const CASE_STUDIES = {
   automation: {
     num: '03',
     title: 'AI 활용 자동화',
-    subtitle: 'AI로 회사 보고서 · 주간 업무보고를 자동화',
-    meta: [['상태', '상세 내용 정리 중']],
+    subtitle: 'Google Sheets → AI → Docs, 문서 생성 업무 자동화 시스템',
+    meta: [
+      ['역할', '기획 · 시나리오 설계 · 프롬프트 설계 (100%)'],
+      ['기술', 'Make · OpenAI API · Google Sheets API · Google Docs API'],
+    ],
     intro:
-      'AI를 활용해 단순 업무를 효율성 있게 처리합니다.',
-    sections: [],
-    comingSoon: true,
+      'Google Sheets에 입력된 데이터를 기반으로 OpenAI가 문서를 자동 생성하고 Google Docs에 저장하는 업무 자동화 시스템을 구축했습니다.',
+    sections: [
+      {
+        heading: '목적 — 반복되는 문서 작성 업무 줄이기',
+        body: '업무보고 작성, 회의록 정리, 보고서 작성은 매번 사람이 내용을 정리하고 문서를 만들어야 하는 반복 업무였습니다. 이 반복을 줄이기 위해 Make와 OpenAI를 활용해 문서를 자동 생성하는 시스템을 구현했습니다.',
+      },
+    ],
+    /* 자동화 전용 시각 블록 — CaseStudy.jsx에서 각 필드가 있을 때만 렌더링 */
+    beforeAfter: {
+      before: {
+        label: 'BEFORE',
+        title: '사람이 직접',
+        steps: ['업무 입력', '내용 정리 · 보고서 작성', '문서 저장 · 공유'],
+      },
+      after: {
+        label: 'AFTER',
+        title: 'AI가 자동으로',
+        steps: ['업무 입력', 'AI 보고서 생성', '자동 저장 · 상태 업데이트'],
+      },
+      note: '사용자는 Google Sheets에 데이터만 입력하면 됩니다. AI가 내용을 분석해 보고서를 자동 생성합니다.',
+    },
+    flow: {
+      heading: '시스템 구성',
+      nodes: [
+        { name: 'Google Sheets', role: '업무 데이터 입력' },
+        { name: 'Make', role: '신규 데이터 감지 · 전달' },
+        { name: 'OpenAI', role: '내용 분석 · 문서 생성' },
+        { name: 'Google Docs', role: '문서 자동 저장' },
+        { name: 'Google Sheets', role: '완료 상태 업데이트' },
+      ],
+    },
+    features: {
+      heading: '프로젝트 특징',
+      items: [
+        '반복 업무 자동화',
+        'AI 기반 문서 생성',
+        'Google Workspace 연동',
+        '유지보수가 쉬운 구조',
+        '프롬프트 변경만으로 다양한 문서 생성',
+      ],
+    },
+    expansion: {
+      heading: '확장 가능성',
+      current: '업무보고',
+      targets: ['회의록', '상담일지', '프로젝트 회고', '블로그 초안', '마케팅 보고서', '견적서 초안'],
+      note: '프롬프트와 입력 데이터만 변경하면 동일한 시스템을 다양한 문서 자동화에 재사용할 수 있도록 설계했습니다.',
+    },
     next: 'marketing',
   },
 }

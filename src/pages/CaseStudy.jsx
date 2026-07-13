@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { Fragment, useEffect } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { CASE_STUDIES } from '../data/caseStudies'
 import styles from './CaseStudy.module.css'
@@ -142,6 +142,87 @@ function CaseStudy() {
             )}
           </section>
         ))}
+
+        {/* Before / After 비교 — 사람이 하던 흐름과 자동화된 흐름의 대비 */}
+        {data.beforeAfter && (
+          <section className={styles.block}>
+            <h2>Before / After</h2>
+            <div className={styles.baGrid}>
+              {[data.beforeAfter.before, data.beforeAfter.after].map((side, i) => (
+                <div
+                  key={side.label}
+                  className={i ? `${styles.baCol} ${styles.baColAfter}` : styles.baCol}
+                >
+                  <span className={styles.baLabel}>{side.label}</span>
+                  <p className={styles.baTitle}>{side.title}</p>
+                  <ol className={styles.baSteps}>
+                    {side.steps.map((step) => (
+                      <li key={step}>{step}</li>
+                    ))}
+                  </ol>
+                </div>
+              ))}
+            </div>
+            <p className={styles.blockNote}>{data.beforeAfter.note}</p>
+          </section>
+        )}
+
+        {/* 시스템 구성 플로우 — 노드와 역할을 화살표로 잇는 다이어그램 */}
+        {data.flow && (
+          <section className={styles.block}>
+            <h2>{data.flow.heading}</h2>
+            <div className={styles.flow}>
+              {data.flow.nodes.map((node, i) => (
+                <Fragment key={`${node.name}-${i}`}>
+                  {i > 0 && (
+                    <span className={styles.flowArrow} aria-hidden="true">
+                      →
+                    </span>
+                  )}
+                  <div className={styles.flowNode}>
+                    <span className={styles.flowName}>{node.name}</span>
+                    <span className={styles.flowRole}>{node.role}</span>
+                  </div>
+                </Fragment>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* 특징 체크리스트 */}
+        {data.features && (
+          <section className={styles.block}>
+            <h2>{data.features.heading}</h2>
+            <ul className={styles.featureList}>
+              {data.features.items.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {/* 확장 가능성 — 현재 용도에서 갈라져 나가는 재사용 태그들 */}
+        {data.expansion && (
+          <section className={styles.block}>
+            <h2>{data.expansion.heading}</h2>
+            <div className={styles.expansion}>
+              <span className={`${styles.expTag} ${styles.expTagCurrent}`}>
+                {data.expansion.current}
+              </span>
+              <span className={styles.flowArrow} aria-hidden="true">
+                →
+              </span>
+              <div className={styles.expTargets}>
+                {data.expansion.targets.map((target) => (
+                  <span key={target} className={styles.expTag}>
+                    {target}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <p className={styles.blockNote}>{data.expansion.note}</p>
+          </section>
+        )}
 
         {data.writing && (
           <section className={styles.writing}>
