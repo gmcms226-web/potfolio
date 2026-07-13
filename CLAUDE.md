@@ -21,7 +21,11 @@ Headless verification scripts (all use puppeteer-core driving Edge; `check*`/`sh
 
 Important: HMR corrupts ScrollTrigger pin state, so after structural edits the browser needs a full reload before judging behavior.
 
-This directory is a git repository (initialized 2026-07-10; no remote yet) — use commits for rollback points. Older manual backups live under `.codex-backups/` (gitignored, e.g. `reaction-before-radar/`).
+Mobile review screenshots (390×844 baseline) live in `scripts/shots/mobile/`; the mobile pass done 2026-07-11 covered the whole page, so mobile regressions matter as much as desktop ones.
+
+This directory is a git repository — use commits for rollback points. Older manual backups live under `.codex-backups/` (gitignored, e.g. `reaction-before-radar/`).
+
+Deployment: remote `origin` is https://github.com/gmcms226-web/potfolio (private); **pushing to `main` auto-deploys to production** at https://potfolio-green-seven.vercel.app via the Vercel–GitHub integration, so don't push unverified work. Manual deploy: `vercel deploy --prod --yes`. `vercel.json` holds the SPA rewrite that keeps `/projects/:slug` reloads from 404ing.
 
 Also read `AGENTS.md` and `HANDOFF.md` — they contain project guidelines and active work constraints.
 
@@ -73,7 +77,7 @@ Keep this split: don't introduce GSAP into part 2 or replace part 1 with part 2.
 - Design should stay clean, premium, B2B-proposal-like — no neon, particles, or heavy gradients.
 - Never suggest or add a custom cursor — the user explicitly had one removed.
 - Company names are OK in the 경력 line of Record's Capabilities block ("동화세상에듀코 콘텐츠 마케팅 8년 · ㈜예람 인턴 2개월", user-confirmed 2026-07-09) — avoid exposing them elsewhere in copy.
-- Known open items: large assets (`pillar-*.png`, `value-*.png`, `write/`, `voyage/`, `case/` — up to several MB each) trigger build size warnings and need WebP/resize before deploy; `src/assets/reaction/search-demo.webm` is unused but kept; SPA routing config and favicon needed before deploy.
+- Known open items (post-deploy polish): large assets (`pillar-*.png`, `value-*.png`, `write/`, `voyage/`, `case/` — up to several MB each) trigger build size warnings and need WebP/resize; the favicon 404s; unused files (`src/assets/reaction/search-demo.webm`, `ship.png`, the original mp4) are kept for now.
 - The automation photo-spread slots (`projects/project-3-2`, `project-3-3`) are intentionally empty pending user material — don't nag about them (HANDOFF: 재촉 금지).
 
 ## Style
