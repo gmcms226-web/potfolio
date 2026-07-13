@@ -267,7 +267,13 @@ export const CASE_STUDIES = {
       {
         title: 'MIKIHOUSE 일체형 쇼핑몰',
         tag: '풀 커머스 흐름',
-        links: [{ label: '배포 사이트 보기', url: 'https://miki-o1w7.vercel.app', primary: true }],
+        links: [
+          { label: '배포 사이트 보기', url: 'https://miki-o1w7.vercel.app', primary: true },
+          {
+            label: '디자인 보기',
+            url: 'https://www.figma.com/design/C9roNWogjssm1AxQlSdKFb/%EC%9D%BC%EC%B2%B4%ED%98%95%ED%8E%98%EC%9D%B4%EC%A7%80-%EC%B6%94%EB%AF%BC%EC%84%9D?node-id=19-939&t=4264sxffJ6W52bPE-1',
+          },
+        ],
         gallery: { from: 7, to: 9 },
         sections: [
           {

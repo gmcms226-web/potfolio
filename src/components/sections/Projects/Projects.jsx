@@ -99,6 +99,12 @@ const PERSONAL_PROJECTS = [
       '인스타 콘텐츠 기획',
       '4컷툰 시리즈 제작',
     ],
+    links: [
+      {
+        label: '기획서 보기',
+        url: 'https://www.figma.com/board/i0P71eS2VQ4VupJGPEoVNH/%EC%B6%94%EB%AF%BC%EC%84%9D_%EC%9D%B8%EC%8A%A4%ED%83%80-%EA%B3%84%EC%A0%95-%EA%B8%B0%ED%9A%8D?node-id=0-1&t=fBZ6t5jbpgaDijYe-1',
+      },
+    ],
   },
   {
     title: '작사 노트',
@@ -319,6 +325,21 @@ function Projects() {
                   <li key={item}>{item}</li>
                 ))}
               </ul>
+              {project.links && (
+                <div className={styles.personalLinks}>
+                  {project.links.map((link) => (
+                    <a
+                      key={link.url}
+                      href={link.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className={styles.personalLink}
+                    >
+                      {link.label} <span aria-hidden="true">↗</span>
+                    </a>
+                  ))}
+                </div>
+              )}
             </article>
           ))}
         </div>
