@@ -77,7 +77,7 @@ Keep this split: don't introduce GSAP into part 2 or replace part 1 with part 2.
 - Design should stay clean, premium, B2B-proposal-like — no neon, particles, or heavy gradients.
 - Never suggest or add a custom cursor — the user explicitly had one removed.
 - Company names are OK in the 경력 line of Record's Capabilities block ("동화세상에듀코 콘텐츠 마케팅 8년 · ㈜예람 인턴 2개월", user-confirmed 2026-07-09) — avoid exposing them elsewhere in copy.
-- Known open items (post-deploy polish): large assets (`pillar-*.png`, `value-*.png`, `write/`, `voyage/`, `case/` — up to several MB each) trigger build size warnings and need WebP/resize; the favicon 404s; unused files (`src/assets/reaction/search-demo.webm`, `ship.png`, the original mp4) are kept for now.
+- Known open items (post-deploy polish): `pillar-*`/`value-*` were converted to WebP and the favicon/unused-file issues resolved on 2026-07-13, but `works/`, `write/`, `case/` still hold multi-MB PNGs (JS chunk warning also remains) — convert/resize those next if load time matters.
 - The automation photo-spread slots (`projects/project-3-2`, `project-3-3`) are intentionally empty pending user material — don't nag about them (HANDOFF: 재촉 금지).
 
 ## Style
