@@ -79,12 +79,12 @@ const CARD_PROJECTS = [
       headline: ['반복은 시스템에게,', '판단은 사람에게.'],
       sub: '회사 보고서 · 주간 업무보고 자동화',
       photos: [
-        { page: 'P.01', caption: '자동화 워크플로우' },
-        { page: 'P.02', caption: '시스템이 만든 결과물' },
+        { page: 'P.01', caption: '시트 → AI → 문서, 자동화 워크플로우' },
+        { page: 'P.02', caption: 'AI에게 일을 맡기는 조건 설계' },
       ],
       back: {
         stat: 'NEXT ISSUE.',
-        line: '자동화 편은 지금 기록을 정리하는 중입니다.',
+        line: '주간 보고서 자동화 편을 준비하고 있습니다.',
       },
     },
   },
