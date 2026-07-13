@@ -501,6 +501,37 @@
   color: var(--color-accent-deep);
 }
 
+/* 섹션 본문 + 증거 이미지 2단 — 리뉴얼 전 화면 같은 근거 캡처용 */
+.blockSplit {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) 1.15fr;
+  gap: 30px;
+  align-items: start;
+}
+
+.blockSplit p {
+  margin: 0;
+}
+
+.blockFigure {
+  margin: 0;
+}
+
+.blockFigure img {
+  width: 100%;
+  max-height: 440px;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 12px;
+  border: 1px solid rgba(20, 20, 19, 0.12);
+}
+
+.blockFigure figcaption {
+  margin-top: 10px;
+  font-size: 17px;
+  color: rgba(20, 20, 19, 0.55);
+}
+
 /* 실행 기록 — 번호 캡션이 붙은 실행 캡처 그리드 */
 .runLog {
   display: grid;
@@ -638,6 +669,10 @@
   }
 
   .runLog {
+    grid-template-columns: 1fr;
+  }
+
+  .blockSplit {
     grid-template-columns: 1fr;
   }
 }

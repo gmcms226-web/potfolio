@@ -140,7 +140,22 @@ function CaseStudy() {
             {chapter.sections.map((section) => (
               <div key={section.heading} className={styles.block}>
                 <h2>{section.heading}</h2>
-                <p>{section.body}</p>
+                {section.image && imageByNum[section.image.num] ? (
+                  /* 본문 옆에 증거 이미지 — 진단 텍스트와 리뉴얼 전 화면을 나란히 */
+                  <div className={styles.blockSplit}>
+                    <figure className={styles.blockFigure}>
+                      <img
+                        src={imageByNum[section.image.num]}
+                        alt={section.image.caption}
+                        loading="lazy"
+                      />
+                      <figcaption>{section.image.caption}</figcaption>
+                    </figure>
+                    <p>{section.body}</p>
+                  </div>
+                ) : (
+                  <p>{section.body}</p>
+                )}
               </div>
             ))}
             <div className={styles.chapterGallery}>
