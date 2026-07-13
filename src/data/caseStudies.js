@@ -221,6 +221,7 @@ export const CASE_STUDIES = {
       {
         title: '국립세종수목원 클론코딩',
         tag: '학습 재현',
+        links: [{ label: '배포 사이트 보기', url: 'https://sejong-psi.vercel.app' }],
         gallery: { from: 4, to: 6 },
         sections: [
           {
@@ -238,6 +239,7 @@ export const CASE_STUDIES = {
       {
         title: '이정민 애견미용학원 리뉴얼',
         tag: '실전 문제해결',
+        links: [{ label: '배포 사이트 보기', url: 'https://ljm-ten.vercel.app' }],
         gallery: { from: 1, to: 3 },
         sections: [
           {
@@ -255,6 +257,7 @@ export const CASE_STUDIES = {
       {
         title: 'MIKIHOUSE 일체형 쇼핑몰',
         tag: '풀 커머스 흐름',
+        links: [{ label: '배포 사이트 보기', url: 'https://miki-o1w7.vercel.app' }],
         gallery: { from: 7, to: 9 },
         sections: [
           {
