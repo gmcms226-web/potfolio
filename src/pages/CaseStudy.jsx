@@ -84,6 +84,21 @@ function CaseStudy() {
               <h3>{chapter.title}</h3>
               <span className={styles.chapterTone}>{chapter.tag}</span>
             </header>
+            {chapter.links && (
+              <div className={styles.links}>
+                {chapter.links.map((link) => (
+                  <a
+                    key={link.url}
+                    href={link.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={styles.linkChip}
+                  >
+                    {link.label} <span aria-hidden="true">↗</span>
+                  </a>
+                ))}
+              </div>
+            )}
             {chapter.sections.map((section) => (
               <div key={section.heading} className={styles.block}>
                 <h2>{section.heading}</h2>
