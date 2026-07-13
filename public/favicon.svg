@@ -1,4 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="14" fill="#e03e28"/>
-  <text x="32" y="45" text-anchor="middle" font-family="'Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="36" font-weight="700" fill="#fff">추</text>
+  <!-- 반응·문의 말풍선 — 레드 버블 + 응답 점 3개 -->
+  <path d="M12 6h40a10 10 0 0 1 10 10v22a10 10 0 0 1-10 10H27L13 59.5V48h-1A10 10 0 0 1 2 38V16A10 10 0 0 1 12 6Z" fill="#e03e28"/>
+  <circle cx="19" cy="27" r="5" fill="#fff"/>
+  <circle cx="32" cy="27" r="5" fill="#fff"/>
+  <circle cx="45" cy="27" r="5" fill="#fff"/>
 </svg>
