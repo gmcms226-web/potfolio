@@ -70,14 +70,14 @@ const CARD_PROJECTS = [
   {
     num: '03',
     slug: 'automation',
-    title: '블로그 자동화',
+    title: 'AI 활용 자동화',
     meta: 'AI · Automation',
     desc: 'AI를 활용해 단순 업무를 효율성 있게 처리합니다.',
     magazine: {
       vol: 'Vol.03',
       issue: 'ISSUE 03 — AUTOMATION',
       headline: ['반복은 시스템에게,', '판단은 사람에게.'],
-      sub: 'AI 콘텐츠 제작 파이프라인',
+      sub: '회사 보고서 · 주간 업무보고 자동화',
       photos: [
         { page: 'P.01', caption: '자동화 워크플로우' },
         { page: 'P.02', caption: '시스템이 만든 결과물' },

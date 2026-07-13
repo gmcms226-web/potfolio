@@ -279,8 +279,8 @@ export const CASE_STUDIES = {
 
   automation: {
     num: '03',
-    title: '블로그 자동화',
-    subtitle: 'AI로 콘텐츠 제작 흐름을 자동화',
+    title: 'AI 활용 자동화',
+    subtitle: 'AI로 회사 보고서 · 주간 업무보고를 자동화',
     meta: [['상태', '상세 내용 정리 중']],
     intro:
       'AI를 활용해 단순 업무를 효율성 있게 처리합니다.',
