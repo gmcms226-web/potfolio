@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import styles from './Reaction.module.css'
-import seaImg from '../../../assets/voyage/sea.png'
+// poster는 배가 보이는 프레임(영상 2.5s 추출) — 영상 로드가 늦어도 배는 항상 보인다
+import seaImg from '../../../assets/voyage/sea-poster.jpg'
 // 스크럽 전용 재인코딩본 (키프레임 4프레임 간격) — 원본 Ships_sailing_hero.mp4는 GOP가 길어
 // currentTime 탐색이 느려서 실제 브라우저에서 영상이 멈춘 것처럼 보인다
 import seaVideo from '../../../assets/voyage/ships-scrub.mp4'
@@ -86,6 +87,28 @@ function Reaction() {
 
   useEffect(() => {
     setReduced(window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+  }, [])
+
+  // 모바일에서 preload가 미뤄지면 첫 프레임이 없어 poster(배 없는 바다)만 남는다 —
+  // 인트로 뒤에서 play→pause 한 번으로 로딩·첫 프레임 디코드를 강제한다
+  useEffect(() => {
+    const video = sectionRef.current?.querySelector('video')
+    if (!video) return
+    let done = false
+    const kick = () => {
+      if (done) return
+      const p = video.play()
+      if (p && p.then) {
+        p.then(() => {
+          done = true
+          video.pause()
+          video.currentTime = 0
+        }).catch(() => {}) // 자동재생 차단 시 첫 터치에서 재시도
+      }
+    }
+    kick()
+    window.addEventListener('touchstart', kick, { once: true, passive: true })
+    return () => window.removeEventListener('touchstart', kick)
   }, [])
 
   useEffect(() => {
