@@ -221,7 +221,7 @@ export const CASE_STUDIES = {
       {
         title: '국립세종수목원 클론코딩',
         tag: '학습 재현',
-        links: [{ label: '배포 사이트 보기', url: 'https://sejong-psi.vercel.app' }],
+        links: [{ label: '배포 사이트 보기', url: 'https://sejong-psi.vercel.app', primary: true }],
         gallery: { from: 4, to: 6 },
         sections: [
           {
@@ -239,7 +239,17 @@ export const CASE_STUDIES = {
       {
         title: '이정민 애견미용학원 리뉴얼',
         tag: '실전 문제해결',
-        links: [{ label: '배포 사이트 보기', url: 'https://ljm-ten.vercel.app' }],
+        links: [
+          { label: '배포 사이트 보기', url: 'https://ljm-ten.vercel.app', primary: true },
+          {
+            label: '기획서 보기',
+            url: 'https://www.canva.com/design/DAHMQoPgSVY/98kVwfeZJEMlu6NBKufxqw/edit',
+          },
+          {
+            label: '디자인 보기',
+            url: 'https://www.figma.com/design/uD2m9lWjz6ihFyAxlBGIvY/%EC%B6%94%EB%AF%BC%EC%84%9D%EC%9D%98-%ED%8C%80-team-library?node-id=0-1&t=AECW9hQeF9RC9SIX-1',
+          },
+        ],
         gallery: { from: 1, to: 3 },
         sections: [
           {
@@ -257,7 +267,7 @@ export const CASE_STUDIES = {
       {
         title: 'MIKIHOUSE 일체형 쇼핑몰',
         tag: '풀 커머스 흐름',
-        links: [{ label: '배포 사이트 보기', url: 'https://miki-o1w7.vercel.app' }],
+        links: [{ label: '배포 사이트 보기', url: 'https://miki-o1w7.vercel.app', primary: true }],
         gallery: { from: 7, to: 9 },
         sections: [
           {

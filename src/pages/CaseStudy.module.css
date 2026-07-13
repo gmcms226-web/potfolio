@@ -209,6 +209,19 @@
   color: var(--color-accent-deep);
 }
 
+/* 대표 링크(배포 사이트) — 액센트 채움으로 위계 강조 */
+.linkChipPrimary {
+  background: var(--color-accent-deep);
+  border-color: var(--color-accent-deep);
+  color: #fff;
+}
+
+.linkChipPrimary:hover {
+  background: #c33520;
+  border-color: #c33520;
+  color: #fff;
+}
+
 /* 글쓰기 해부 — 발행 글 캡처 + 의도 주석. 주석은 스크롤 중 스티키로 따라온다 */
 .writing {
   margin-top: 72px;

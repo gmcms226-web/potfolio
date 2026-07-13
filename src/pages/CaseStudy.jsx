@@ -92,7 +92,11 @@ function CaseStudy() {
                     href={link.url}
                     target="_blank"
                     rel="noreferrer"
-                    className={styles.linkChip}
+                    className={
+                      link.primary
+                        ? `${styles.linkChip} ${styles.linkChipPrimary}`
+                        : styles.linkChip
+                    }
                   >
                     {link.label} <span aria-hidden="true">↗</span>
                   </a>
