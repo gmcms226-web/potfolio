@@ -46,9 +46,23 @@ function CaseStudy() {
 
   if (!data) return <Navigate to="/" replace />
 
-  const images = Object.entries(imageModules)
+  const imageEntries = Object.entries(imageModules)
     .filter(([path]) => path.includes(`/${slug}-`))
     .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
+
+  /* 실행 기록에 쓰인 번호는 상단 갤러리에서 제외 — 이미지가 두 번 나오지 않게 */
+  const numOf = (path) => {
+    const match = path.match(/-(\d+)\.\w+$/i)
+    return match ? Number(match[1]) : null
+  }
+  const runLogNums = new Set((data.runLog?.items ?? []).map((item) => item.num))
+  const imageByNum = {}
+  for (const [path, url] of imageEntries) {
+    const num = numOf(path)
+    if (num !== null) imageByNum[num] = url
+  }
+  const images = imageEntries
+    .filter(([path]) => !runLogNums.has(numOf(path)))
     .map(([, url]) => url)
 
   const next = CASE_STUDIES[data.next]
@@ -211,6 +225,33 @@ function CaseStudy() {
                   </div>
                 </Fragment>
               ))}
+            </div>
+          </section>
+        )}
+
+        {/* 실행 기록 — 캡션 달린 실제 실행 캡처들 */}
+        {data.runLog && (
+          <section className={styles.block}>
+            <h2>{data.runLog.heading}</h2>
+            <div className={styles.runLog}>
+              {data.runLog.items.map(
+                (item, idx) =>
+                  imageByNum[item.num] && (
+                    <figure key={item.num} className={styles.runItem}>
+                      <img
+                        src={imageByNum[item.num]}
+                        alt={item.caption}
+                        loading="lazy"
+                      />
+                      <figcaption>
+                        <span className={styles.runStep}>
+                          {String(idx + 1).padStart(2, '0')}
+                        </span>
+                        {item.caption}
+                      </figcaption>
+                    </figure>
+                  ),
+              )}
             </div>
           </section>
         )}

@@ -501,6 +501,40 @@
   color: var(--color-accent-deep);
 }
 
+/* 실행 기록 — 번호 캡션이 붙은 실행 캡처 그리드 */
+.runLog {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px 20px;
+  margin-top: 26px;
+}
+
+.runItem {
+  margin: 0;
+}
+
+.runItem img {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid rgba(20, 20, 19, 0.12);
+}
+
+.runItem figcaption {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  font-size: 18px;
+  line-height: 1.5;
+  color: rgba(20, 20, 19, 0.65);
+}
+
+.runStep {
+  flex-shrink: 0;
+  font-weight: 700;
+  color: var(--color-accent-deep);
+  font-variant-numeric: tabular-nums;
+}
+
 /* 특징 체크리스트 */
 .featureList {
   display: grid;
@@ -600,6 +634,10 @@
   }
 
   .featureList {
+    grid-template-columns: 1fr;
+  }
+
+  .runLog {
     grid-template-columns: 1fr;
   }
 }

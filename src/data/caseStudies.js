@@ -342,6 +342,16 @@ export const CASE_STUDIES = {
         { name: '검수 · 발행', role: '사람이 직접 (수동)', manual: true },
       ],
     },
+    /* 실행 기록 — case/automation-N 캡처를 번호로 참조 (여기 쓰인 번호는 상단 갤러리에서 제외됨) */
+    runLog: {
+      heading: '실행 기록 — 실제로 돌아가는 화면',
+      items: [
+        { num: 2, caption: 'Google Sheets에 키워드와 타겟을 입력 — 상태는 아직 "대기"' },
+        { num: 3, caption: '프롬프트로 AI에게 작성 조건을 지시 — 톤 · 분량 · 형식까지 설계' },
+        { num: 4, caption: 'Make 시나리오 실행 — 신규 행 감지 → AI 생성 → Docs 저장' },
+        { num: 5, caption: '완성된 초안이 Google Docs에 자동 생성된 결과물' },
+      ],
+    },
     features: {
       heading: '프로젝트 특징',
       items: [
