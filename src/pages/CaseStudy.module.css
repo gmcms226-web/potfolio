@@ -491,6 +491,16 @@
   color: var(--color-accent-deep);
 }
 
+/* 수동 단계 노드 — 자동화 구간과 구분되는 점선 표시 (하이브리드 구조) */
+.flowNodeManual {
+  border: 1.5px dashed rgba(224, 62, 40, 0.55);
+  background: transparent;
+}
+
+.flowNodeManual .flowName {
+  color: var(--color-accent-deep);
+}
+
 /* 특징 체크리스트 */
 .featureList {
   display: grid;

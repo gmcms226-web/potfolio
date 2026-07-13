@@ -199,7 +199,13 @@ function CaseStudy() {
                       →
                     </span>
                   )}
-                  <div className={styles.flowNode}>
+                  <div
+                    className={
+                      node.manual
+                        ? `${styles.flowNode} ${styles.flowNodeManual}`
+                        : styles.flowNode
+                    }
+                  >
                     <span className={styles.flowName}>{node.name}</span>
                     <span className={styles.flowRole}>{node.role}</span>
                   </div>
