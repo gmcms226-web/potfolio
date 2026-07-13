@@ -12,6 +12,18 @@ const imageModules = import.meta.glob('../assets/case/*', {
   import: 'default',
 })
 
+/* 챕터 목업 이미지 — src/assets/case/mockup/<slug>-<챕터번호>.* 자동 연결.
+   챕터 제목 바로 아래에 크게 노출된다 (갤러리 번호 체계와 분리된 폴더) */
+const mockupModules = import.meta.glob('../assets/case/mockup/*', {
+  eager: true,
+  import: 'default',
+})
+const mockupByKey = {}
+for (const [path, url] of Object.entries(mockupModules)) {
+  const match = path.match(/([a-z]+)-(\d+)\.\w+$/i)
+  if (match) mockupByKey[`${match[1].toLowerCase()}-${match[2]}`] = url
+}
+
 /* 글쓰기 해부 캡처 — src/assets/write/write-<챕터>-<순서>.png 자동 연결.
    data.writing의 img 키("write-1-1")와 파일명으로 매칭한다 */
 const writeModules = import.meta.glob('../assets/write/write-*', {
@@ -84,6 +96,14 @@ function CaseStudy() {
               <h3>{chapter.title}</h3>
               <span className={styles.chapterTone}>{chapter.tag}</span>
             </header>
+            {mockupByKey[`${slug}-${i + 1}`] && (
+              <img
+                className={styles.chapterMockup}
+                src={mockupByKey[`${slug}-${i + 1}`]}
+                alt={`${chapter.title} 목업`}
+                loading="lazy"
+              />
+            )}
             {chapter.links && (
               <div className={styles.links}>
                 {chapter.links.map((link) => (
