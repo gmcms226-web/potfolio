@@ -250,6 +250,11 @@
   border-bottom: 1px solid rgba(20, 20, 19, 0.08);
 }
 
+/* 챕터 배포 링크 칩 — 헤더·본문 사이에서 위아래로 숨 쉴 여백 (마케팅 섹션 내 links와 별개) */
+.chapter > .links {
+  margin: 40px 0 48px;
+}
+
 .chapterNum {
   font-size: var(--text-caption);
   letter-spacing: 0.18em;
