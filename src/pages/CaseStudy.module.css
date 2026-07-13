@@ -264,7 +264,8 @@
 
 .chapterHead h3 {
   margin: 0;
-  font-size: clamp(20px, 2.2vw, 24px);
+  /* 본문 소제목(h2, 최대 26px)보다 확실히 큰 챕터 위계 */
+  font-size: clamp(26px, 3.2vw, 34px);
   font-weight: 700;
   letter-spacing: -0.01em;
 }
