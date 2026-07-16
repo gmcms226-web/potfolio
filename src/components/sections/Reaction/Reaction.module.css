@@ -463,9 +463,42 @@
   left: 50%;
   bottom: 28px;
   transform: translateX(-50%);
+  z-index: 6; /* 전면 장면 레이어 위에서 클릭 가능하게 */
+  padding: 8px 14px;
+  background: none;
+  border: 0;
+  font: inherit;
   font-size: var(--text-caption);
   letter-spacing: 0.18em;
   color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.scrollChevron {
+  display: block;
+  width: 10px;
+  height: 10px;
+  margin: 10px auto 0;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+  animation: chevronDip 2s ease-in-out infinite;
+}
+
+@keyframes chevronDip {
+  0%,
+  100% {
+    transform: translateY(0) rotate(45deg);
+  }
+  50% {
+    transform: translateY(6px) rotate(45deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scrollChevron {
+    animation: none;
+  }
 }
 
 .staticWrap {

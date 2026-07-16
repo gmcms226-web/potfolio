@@ -480,7 +480,16 @@ function Reaction() {
           <Pillars />
         </div>
 
-        <p className={styles.scrollHint}>SCROLL</p>
+        {/* 스크롤 유도 버튼 — 클릭하면 한 화면만큼 내려간다. 페이드아웃은 기존 타임라인이 관리 */}
+        <button
+          type="button"
+          className={styles.scrollHint}
+          aria-label="아래로 스크롤"
+          onClick={() => window.scrollBy({ top: window.innerHeight, behavior: 'smooth' })}
+        >
+          SCROLL
+          <span className={styles.scrollChevron} aria-hidden="true" />
+        </button>
       </div>
     </section>
   )
