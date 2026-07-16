@@ -497,7 +497,9 @@
 
 .category {
   margin-bottom: 18px;
-  color: #8f939d;
+  /* SNS · AI · Web 카테고리 라벨 — 검은 배경 위 포인트 컬러로 구분 */
+  color: var(--color-accent);
+  font-weight: 600;
 }
 
 .insightCopy h3 {
