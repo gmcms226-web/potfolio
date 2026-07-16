@@ -351,8 +351,13 @@ function CaseStudy() {
       </main>
 
       <footer className={styles.footer}>
+        {/* 다 읽은 지점에서 바로 나가는 동선 — 상단 sticky 바까지 올라갈 필요 없게 */}
+        <Link to="/" state={{ returnTo: 'projects' }} className={styles.next}>
+          ← 메인으로
+        </Link>
         <Link to={`/projects/${data.next}`} className={styles.next}>
-          다음 프로젝트 — {next.title} →
+          {/* 화살표가 줄바꿈으로 홀로 떨어지지 않게 제목 마지막에 붙인다 */}
+          다음 프로젝트 — {next.title}&nbsp;→
         </Link>
       </footer>
     </div>
