@@ -614,9 +614,12 @@
 }
 
 @media (max-width: 900px) {
+  /* 핀(top top) 동안 보이는 건 뷰포트 높이뿐 — 블록 총높이가 주소창 제외
+     실기기 높이(~660px)를 넘으면 카드 밑이 잘린 채 고정된다. 세로를 압축 */
   .foldBlock {
     min-height: auto;
-    padding: 64px 0;
+    /* 위 56px = 고정 헤더와 "01 / 03" 겹침 방지 */
+    padding: 56px 0 20px;
   }
 
   .foldInner,
@@ -625,10 +628,27 @@
     gap: 46px;
   }
 
+  .foldInner {
+    gap: 20px;
+  }
+
+  .num {
+    margin-bottom: 10px;
+  }
+
+  .foldText h3 {
+    margin-bottom: 14px;
+  }
+
+  .detailLink {
+    margin-top: 16px;
+    padding: 10px 20px;
+  }
+
   .foldStage {
-    height: 90vw;
-    min-height: 330px;
-    max-height: 520px;
+    height: 74vw;
+    min-height: 230px;
+    max-height: 480px;
   }
 
   .insightCard {
