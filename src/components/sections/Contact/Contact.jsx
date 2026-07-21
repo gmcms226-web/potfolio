@@ -52,7 +52,16 @@ function Contact() {
 
       <footer className={styles.footer}>
         <p>추민석 — 반응을 읽는 마케터</p>
-        <p>© 2026</p>
+        <div className={styles.footRight}>
+          <button
+            type="button"
+            className={styles.toTop}
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          >
+            맨 위로 <span aria-hidden="true">↑</span>
+          </button>
+          <p>© 2026</p>
+        </div>
       </footer>
     </section>
   )

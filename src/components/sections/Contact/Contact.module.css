@@ -110,6 +110,45 @@
   margin: 0;
 }
 
+/* 우측 그룹 — '맨 위로' 인라인 출구 + 저작권 (플로팅 버튼 아님, 흐름 내 링크) */
+.footRight {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.toTop {
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: color var(--transition);
+}
+
+.toTop span {
+  display: inline-block;
+  transition: transform var(--transition);
+}
+
+.toTop:hover,
+.toTop:focus-visible {
+  color: var(--color-text);
+}
+
+.toTop:hover span,
+.toTop:focus-visible span {
+  transform: translateY(-3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toTop span {
+    transition: none;
+  }
+}
+
 /* 등장: 공통 규칙(Fade + TranslateY) — 위에서부터 순서대로 스태거 */
 .reveal {
   opacity: 0;
