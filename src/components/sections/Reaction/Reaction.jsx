@@ -13,19 +13,24 @@ gsap.registerPlugin(ScrollTrigger)
 /* 스크롤 주도 오프닝 시퀀스.
    안개 낀 바다의 항해(망설임) → 사용자 관점의 글 → 안심의 여정 → 문의 → 실제 반응 → 정체성 공개 */
 const WORDS = [
-  { label: 'Search.', at: 8, z: -860, exitZ: 420, size: 'small' },
-  { label: 'Read.', at: 27, z: -760, exitZ: 420, size: 'small', y: 170 },
+  { label: 'Search.', at: 5, z: -860, exitZ: 420, size: 'small' },
+  { label: 'Read.', at: 27, z: -760, exitZ: 420, size: 'small', y: 270 },
   { label: 'Trust.', at: 48, z: -900, exitZ: 500, size: 'hero' },
 ]
 
+// 고객의 속마음(미발화) — 어두운 생각 말풍선으로 흩어진다.
+// 뒤쪽 실제 문의(흰 말풍선)와 색·형태로 구분해 "고민 → 문의" 서사를 만든다.
+// 좁은 화면은 클러스터가 가로로 압축돼 긴 문장이 겹친다 —
+// 긴 3개(hideMobile)는 모바일에서 숨겨 5개만 노출한다.
 const INSIGHTS = [
-  { label: '처음', x: -30, y: -24 },
-  { label: '믿음', x: 25, y: -30 },
-  { label: '가격', x: -18, y: 24 },
-  { label: '후기', x: 34, y: 18 },
-  { label: '상황', x: -42, y: 6 },
-  { label: '부담', x: 6, y: -38 },
-  { label: '예약', x: 4, y: 34 },
+  { label: '괜찮을까?', x: -34, y: -28 },
+  { label: '너무 비싼데', x: 30, y: -30 },
+  { label: '후기가 진짜일까', x: -40, y: 6, hideMobile: true },
+  { label: '다른 곳도 볼까', x: 38, y: 12, hideMobile: true },
+  { label: '믿어도 될까', x: -12, y: -44 },
+  { label: '지금 문의해도 되나', x: 4, y: 40, hideMobile: true },
+  { label: '실패하면?', x: 34, y: 36 },
+  { label: '예약해볼까', x: -30, y: 34 },
 ]
 
 const JOURNEY_NODES = ['고민', '탐색', '읽음', '안심', '문의']
@@ -118,6 +123,7 @@ function Reaction() {
       const root = sectionRef.current
       const q = (cls) => root.querySelector(`.${cls}`)
       const insightMap = q(styles.insightMap)
+      const insightCaption = q(styles.insightCaption)
       const seaScene = q(styles.seaScene)
       const seaPhoto = q(styles.seaImg)
       const seaShade = q(styles.seaShade)
@@ -144,6 +150,7 @@ function Reaction() {
       const pillarEls = gsap.utils.toArray(`.${styles.pillar}`, root)
 
       gsap.set(insightMap, { xPercent: -50, yPercent: -50, z: 0, autoAlpha: 1 })
+      gsap.set(insightCaption, { xPercent: -50, autoAlpha: 0, y: 10 })
       gsap.set(seaPhoto, { scale: 1.02, transformOrigin: '50% 62%' })
       gsap.set(nightRise, { yPercent: 100 })
       gsap.set(fogs, { autoAlpha: 1 })
@@ -162,15 +169,15 @@ function Reaction() {
       gsap.set(journeyNodes, { y: 14, autoAlpha: 0 })
       gsap.set(messageLayer, { xPercent: -50, yPercent: -50, y: 35, autoAlpha: 0 })
       gsap.set(messageBubbles, { y: 28, scale: 0.92, autoAlpha: 0 })
-      // 키워드는 화면 가운데 근처에 모여 있다가 스크롤과 함께 사방으로 흩어진다
+      // 말풍선은 각자 제자리에 숨어 있다가, 하나씩 랜덤으로 팝(튀어나옴)한다
       signals.forEach((el, i) => {
         gsap.set(el, {
           xPercent: -50,
           yPercent: -50,
           x: `${INSIGHTS[i].x * 0.55}vw`,
           y: `${INSIGHTS[i].y * 0.55}vh`,
-          scale: 0.9 + (i % 3) * 0.08,
-          autoAlpha: 0.35,
+          scale: 0.4,
+          autoAlpha: 0,
         })
       })
       gsap.set(words, { xPercent: -50, yPercent: -50, z: -1200, autoAlpha: 0 })
@@ -205,18 +212,28 @@ function Reaction() {
       })
 
       tl.to(hint, { autoAlpha: 0, duration: 4 }, 0)
-      tl.fromTo(
-        signals,
-        { autoAlpha: 0, scale: 0.55 },
-        {
-          autoAlpha: 1,
-          scale: 1,
-          duration: 8,
-          stagger: 0.45,
-          ease: 'power2.out',
-        },
-        0,
-      )
+      // 캡션(라벨)이 가장 먼저 뜬다 → Search.(5) → 그다음 말풍선들이 하나씩 팝
+      tl.to(insightCaption, { autoAlpha: 1, y: 0, duration: 4, ease: 'power2.out' }, 1)
+      // 속마음 말풍선 — Search. 뒤에 하나씩 랜덤으로 팝(튀어나옴)했다가, 다음이 뜨면
+      // 스르륵 사라진다. 한 화면에 1~2개만 → 2배로 키워도 겹치지 않는다.
+      // 순열은 고정(스크럽 결정성 유지)
+      const POP_ORDER = [3, 0, 6, 1, 7, 4, 2, 5]
+      POP_ORDER.forEach((idx, rank) => {
+        if (!signals[idx]) return
+        const at = 8 + rank * 1.3
+        tl.fromTo(
+          signals[idx],
+          { autoAlpha: 0, scale: 0.4 },
+          { autoAlpha: 1, scale: 1, duration: 0.9, ease: 'back.out(1.8)' },
+          at,
+        )
+        // 팝 뒤 더 오래 머문 다음(1.7) 스르륵 사라진다 — "너무 빨리 사라진다" 피드백 반영
+        tl.to(
+          signals[idx],
+          { autoAlpha: 0, scale: 0.9, duration: 1.0, ease: 'power1.in' },
+          at + 1.7,
+        )
+      })
       // 카메라 푸시인 — 안개 걷힘과 함께 바다로 서서히 다가간다
       tl.to(seaPhoto, { scale: 1.12, duration: 22, ease: 'none' }, 0)
 
@@ -244,16 +261,8 @@ function Reaction() {
         }, 8 + i * 3)
       })
 
-      // 망설임 키워드 — 가운데에서 사방으로 화면 밖까지 흩어지며 사라진다
-      tl.to(signals, {
-        x: (i) => `${INSIGHTS[i].x * 3.2}vw`,
-        y: (i) => `${INSIGHTS[i].y * 2.6}vh`,
-        scale: 1.18,
-        autoAlpha: 0,
-        duration: 7,
-        stagger: 0.5,
-        ease: 'power2.in',
-      }, 13)
+      // 캡션은 말풍선이 다 스쳐갈 때까지 라벨로 머물다, 마지막 팝 뒤 걷힌다
+      tl.to(insightCaption, { autoAlpha: 0, y: -12, duration: 4, ease: 'power1.in' }, 19.5)
 
       tl.to(contentCard, {
         y: 0,
@@ -261,7 +270,7 @@ function Reaction() {
         autoAlpha: 1,
         duration: 8,
         ease: 'power2.out',
-      }, 16)
+      }, 20)
       tl.to(contentCard, {
         y: -58,
         scale: 0.92,
@@ -301,9 +310,14 @@ function Reaction() {
       tl.set(seaScene, { autoAlpha: 0 }, 67) // 완전히 덮인 뒤 합성 부담 제거
       tl.to(messageLayer, { y: -24, autoAlpha: 0, duration: 4 }, 66)
 
+      // 세로가 넉넉한 폰에선 Search.가 배 그래픽·하단 키워드와 겹쳐 답답 — 살짝 위로 올린다.
+      // (짧은 화면은 캡션↔Search 공간이 부족해 올리지 않는다; CSS 캡션 위치와 조건 일치)
+      const narrow = window.matchMedia('(max-width: 768px) and (min-height: 720px)').matches
       words.forEach((word, i) => {
         const item = WORDS[i]
-        tl.set(word, { y: item.y ?? 0, z: item.z }, item.at - 0.1)
+        const baseY = item.y ?? 0
+        const y = narrow && item.label === 'Search.' ? baseY - 40 : baseY
+        tl.set(word, { y, z: item.z }, item.at - 0.1)
         tl.to(word, { z: 0, autoAlpha: 1, duration: 2.2, ease: 'power1.out' }, item.at)
         tl.to(word, { z: item.exitZ, autoAlpha: 0, duration: 2.2, ease: 'power1.in' }, item.at + 4.6)
       })
@@ -392,9 +406,12 @@ function Reaction() {
         <div className={styles.nightRise} aria-hidden="true" />
 
         <div className={styles.insightMap}>
+          <p className={styles.insightCaption}>고객이 문의 전에 망설이는 것들</p>
           {INSIGHTS.map((item) => (
-            <span key={item.label} className={styles.signal}>
-              <span className={styles.signalDot} />
+            <span
+              key={item.label}
+              className={`${styles.signal} ${item.hideMobile ? styles.signalDeskOnly : ''}`}
+            >
               <span className={styles.signalLabel}>{item.label}</span>
             </span>
           ))}

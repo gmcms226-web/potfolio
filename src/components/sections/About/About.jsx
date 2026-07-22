@@ -75,9 +75,9 @@ function About() {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: 'top top',
-          // 슬라이드당 210% — 300%는 4슬라이드 기준 화면 12개 분량이라 스크롤이 죽은 것처럼 느껴진다
-          // + 85%는 마지막 퇴장 챕터(축소·페이드) 몫. 전체 감속 요청으로 165/70에서 확대 (2026-07-09)
-          end: `+=${slides.length * 210 + 85}%`,
+          // 슬라이드당 150% — 210%(2026-07-09 확대)는 About→Projects가 너무 길다는
+          // 피드백으로 축소 (2026-07-22). + 85%는 마지막 퇴장 챕터(축소·페이드) 몫.
+          end: `+=${slides.length * 150 + 85}%`,
           pin: true,
           scrub: 1.1,
           anticipatePin: 1,

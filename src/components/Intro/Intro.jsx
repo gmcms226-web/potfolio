@@ -109,11 +109,12 @@ function CaptionPlane() {
   const texture = useMemo(() => {
     const { canvas, ctx } = makeTextCanvas(1024, 96)
     ctx.font = `500 40px ${FONT_STACK}`
-    if ('letterSpacing' in ctx) ctx.letterSpacing = '10px'
+    if ('letterSpacing' in ctx) ctx.letterSpacing = '4px'
     ctx.fillStyle = 'rgba(245, 245, 242, 0.5)'
     ctx.textAlign = 'center'
     ctx.textBaseline = 'middle'
-    ctx.fillText('CAREER — SINCE 2018', canvas.width / 2, canvas.height / 2)
+    // 카운터가 무슨 숫자인지 한 줄로 — 영어 라벨 대신 의미가 바로 읽히는 한국어
+    ctx.fillText('사람의 반응을 읽어온 시간', canvas.width / 2, canvas.height / 2)
     return new THREE.CanvasTexture(canvas)
   }, [])
 
@@ -226,7 +227,7 @@ function DomCounter({ animate, onCountDone }) {
 
   return (
     <div className={styles.inner}>
-      <p className={styles.caption}>CAREER — SINCE 2018</p>
+      <p className={styles.caption}>사람의 반응을 읽어온 시간</p>
       <p className={styles.counter}>{label}</p>
     </div>
   )

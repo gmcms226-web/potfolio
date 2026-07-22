@@ -32,7 +32,7 @@
 
 .caption {
   font-size: var(--text-caption);
-  letter-spacing: 0.14em;
+  letter-spacing: 0.06em;
   opacity: 0.5;
   margin-bottom: 12px;
 }

@@ -51,7 +51,17 @@
   letter-spacing: 0.1em;
   color: #7a7770;
   font-variant-numeric: tabular-nums;
+  font-weight: 700;
   margin-bottom: 20px;
+}
+
+/* 현재 프로젝트 번호는 진하게, 전체 개수는 연하게 — 진행 위치가 한눈에 구분되도록 */
+.numCurrent {
+  color: #1c1a17;
+}
+
+.numTotal {
+  color: #b8b4ab;
 }
 
 .meta {

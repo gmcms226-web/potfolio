@@ -88,8 +88,12 @@ function Home() {
       <main>
         <Reaction />
         {/* 정체성 공개 직후의 증거 — 카운트업 지표 */}
-        <Record />
-        <About />
+        <div id="record-anchor">
+          <Record />
+        </div>
+        <div id="about-anchor">
+          <About />
+        </div>
         {/* 작업물 터널 — Projects 진입 직전의 브릿지 */}
         <Hero />
         <div id="projects-anchor">

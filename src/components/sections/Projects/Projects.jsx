@@ -55,7 +55,7 @@ const CARD_PROJECTS = [
     magazine: {
       vol: 'Vol.02',
       issue: 'ISSUE 02 — WEB',
-      headline: ['반응이 일어나는', '공간을 직접.'],
+      headline: ['반응이 일어나는 공간을', '직접 설계 구현.'],
       sub: '애견미용학원 리뉴얼 · 수목원 클론코딩',
       photos: [
         { page: 'P.01', caption: '답이 먼저 보이는 메인' },
@@ -369,7 +369,10 @@ function FoldProject({ project, projectIndex }) {
       <div className={styles.foldInner}>
         <div className={styles.foldText}>
           <p className={styles.num}>
-            {project.num} / {String(CARD_PROJECTS.length).padStart(2, '0')}
+            <span className={styles.numCurrent}>{project.num}</span> /{' '}
+            <span className={styles.numTotal}>
+              {String(CARD_PROJECTS.length).padStart(2, '0')}
+            </span>
           </p>
           <p className={styles.meta}>{project.meta}</p>
           <h3>{project.title}</h3>

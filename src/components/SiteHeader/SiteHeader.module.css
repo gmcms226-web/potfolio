@@ -59,39 +59,81 @@
   opacity: 0.75;
 }
 
-.contactBtn {
+/* 바로가기 네비 — difference 블렌드 톤을 그대로 물려받고(color: inherit),
+   hover 시 밑줄이 좌→우로 자라나는 절제된 어포던스만 준다 */
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+
+.navLink {
+  position: relative;
   background: none;
-  border: 1px solid rgba(255, 255, 255, 0.55);
-  border-radius: var(--radius-button);
-  padding: 12px 30px;
+  border: none;
+  padding: 6px 2px;
   color: inherit;
   font-family: inherit;
   font-size: 20px;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  transition: background var(--transition);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  transition: opacity var(--transition);
 }
 
-.contactBtn:hover {
-  background: rgba(255, 255, 255, 0.18);
+.navLink::after {
+  content: '';
+  position: absolute;
+  left: 2px;
+  right: 2px;
+  bottom: 0;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition);
+}
+
+.navLink:hover::after {
+  transform: scaleX(1);
 }
 
 @media (max-width: 560px) {
   .header {
-    padding: 10px 16px;
+    padding: 10px 14px;
+    gap: 10px;
   }
 
   .brand {
-    font-size: 24px;
+    font-size: 22px;
   }
 
-  .contactBtn {
-    padding: 8px 18px;
-    font-size: 16px;
-    letter-spacing: 0.1em;
+  .nav {
+    gap: 11px;
+  }
+
+  .navLink {
+    font-size: 13px;
+    letter-spacing: 0.02em;
+    padding: 4px 1px;
   }
 
   .brandSub {
     display: none;
+  }
+}
+
+/* 아주 좁은 화면(아이폰 SE 등) — '포트폴리오'가 넓어 네비가 더 빽빽해진다.
+   폰트·간격을 한 단계 더 줄여 가장자리에 여백을 남긴다 */
+@media (max-width: 360px) {
+  .brand {
+    font-size: 20px;
+  }
+
+  .nav {
+    gap: 9px;
+  }
+
+  .navLink {
+    font-size: 12px;
   }
 }

@@ -97,34 +97,65 @@
   will-change: transform, opacity;
 }
 
+/* 망설임 키워드에 붙는 앵커 캡션 — 단어 구름이 "고객의 불안"으로 즉시 읽히게.
+   Search.(화면 중앙, top:50%) 바로 위에 여백을 두고 얹혀 "망설임 → 탐색" 흐름을 만든다 */
+.insightCaption {
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  margin: 0;
+  white-space: nowrap;
+  font-size: clamp(27px, 3vw, 36px);
+  letter-spacing: 0.02em;
+  font-weight: 600;
+  /* 안개 바다 위에서 묻히지 않게 키워드 칩과 같은 계열의 어두운 알약을 씌우고,
+     글자는 포인트 컬러 + 액센트 테두리로 "라벨"임을 구분한다 */
+  color: var(--color-accent);
+  padding: 13px 30px;
+  border: 1px solid rgba(255, 75, 51, 0.4);
+  border-radius: 999px;
+  background: rgba(20, 20, 19, 0.82);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+/* 고객의 속마음 = 어두운 "생각 말풍선"(미발화). 뒤 실제 문의(흰 말풍선)와
+   색·꼬리로 구분된다. 알약 형태 + 아래 삼각 꼬리로 말풍선을 만든다 */
 .signal {
   position: absolute;
   left: 50%;
   top: 50%;
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  padding: 13px 20px 13px 15px;
+  padding: 16px 26px;
   border: 1px solid rgba(245, 245, 242, 0.14);
-  border-radius: 999px;
-  background: rgba(25, 25, 24, 0.72);
+  border-radius: 26px;
+  background: rgba(23, 23, 22, 0.82);
   color: var(--color-text);
-  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.28);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.34);
   will-change: transform, opacity;
 }
 
-.signalDot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--color-accent);
-  box-shadow: 0 0 18px rgba(255, 75, 51, 0.65);
+/* 말풍선 꼬리 — 버블 하단 왼쪽에 작은 삼각 (버블 배경색과 동일) */
+.signal::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 28px;
+  width: 0;
+  height: 0;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-top: 11px solid rgba(23, 23, 22, 0.82);
 }
 
 .signalLabel {
-  font-size: clamp(20px, 1.8vw, 22px);
+  font-size: clamp(25px, 2.6vw, 33px);
   line-height: 1;
+  letter-spacing: 0.01em;
   color: rgba(245, 245, 242, 0.78);
+  white-space: nowrap;
 }
 
 /* 장면 2: 사용자 관점의 글 카드 */
@@ -527,6 +558,15 @@
     height: 58vh;
   }
 
+  /* 좁은 화면에선 키워드 칩이 중앙을 채워, 데스크톱 위치(30%)면 '처음' 칩과 겹친다.
+     '처음'(위)과 Search.(아래) 사이의 빈 밴드로 내려 여백을 두고 얹는다.
+     알약 세로 패딩은 줄여(공간이 빠듯) Search.와의 간격을 확보한다 */
+  .insightCaption {
+    top: 37%;
+    padding: 5px 15px;
+  }
+
+
   .contentCard {
     top: 45%;
   }
@@ -581,5 +621,13 @@
     top: 44%; /* 이름 뒤에 깔리도록 위로 — 카드와의 겹침 해소 */
     /* min 90px가 좁은 화면에서 잘렸다 — 원근 축소(z -600, ×0.667) 반영해도 12자가 화면 안에 들어오는 크기 */
     font-size: clamp(48px, 17vw, 90px);
+  }
+}
+
+/* 세로가 넉넉한 폰에선 Search.를 위로 올리므로(JS matchMedia와 조건 일치),
+   캡션도 함께 올려 Search.와의 여백을 유지한다 */
+@media (max-width: 768px) and (min-height: 720px) {
+  .insightCaption {
+    top: 34%;
   }
 }
