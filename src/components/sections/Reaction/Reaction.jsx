@@ -419,11 +419,11 @@ function Reaction() {
 
         <article className={styles.contentCard}>
           <p>문의 전 망설임을 먼저 읽고</p>
-          <h2>사용자의 언어로 기준을 정리합니다.</h2>
+          <h2>그 망설임에,<br />먼저 답합니다.</h2>
           <ul>
-            <li>처음 묻는 사람이 가장 걱정하는 것</li>
-            <li>비교 전에 확인하고 싶은 근거</li>
-            <li>읽고 나서 부담 없이 물어볼 수 있는 흐름</li>
+            <li>처음이라 뭐부터 물어야 할지</li>
+            <li>나한테도 맞는 건지</li>
+            <li>지금 연락해도 되는지</li>
           </ul>
         </article>
 
