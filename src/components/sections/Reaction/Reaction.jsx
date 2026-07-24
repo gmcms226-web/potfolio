@@ -227,10 +227,10 @@ function Reaction() {
           { autoAlpha: 1, scale: 1, duration: 0.9, ease: 'back.out(1.8)' },
           at,
         )
-        // 팝 뒤 더 오래 머문 다음(1.7) 스르륵 사라진다 — "너무 빨리 사라진다" 피드백 반영
+        // 팝 뒤 더 오래 머문 다음(1.7) 완만하게 사라진다 — "사라지는 속도가 빠르다" 피드백 반영해 페이드 연장
         tl.to(
           signals[idx],
-          { autoAlpha: 0, scale: 0.9, duration: 1.0, ease: 'power1.in' },
+          { autoAlpha: 0, scale: 0.9, duration: 2.8, ease: 'none' },
           at + 1.7,
         )
       })
